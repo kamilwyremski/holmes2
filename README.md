@@ -1,4 +1,4 @@
-# holmes2
+# Holmes2
 Skrypt bazy nieruchomości Holmes2
 
 Demo skryptu: https://holmes2.itworksbetter.net/
