@@ -6,8 +6,7 @@
 	{% if classifieds_show_map %}
 		<script>
 			function displayMap() {
-				autocomplete = new google.maps.places.Autocomplete((document.getElementById('search_main_address')), {types: ['geocode']});
-				autocomplete2 = new google.maps.places.Autocomplete((document.getElementById('search_box_address')), {types: ['geocode']});
+				new google.maps.places.Autocomplete((document.getElementById('search_box_address')), {types: ['geocode']});
 				var map = new google.maps.Map(document.getElementById('google_maps'), {
 					center: new google.maps.LatLng({{ settings.google_maps_lat }},{{ settings.google_maps_long }}),
 					zoom: 6,
