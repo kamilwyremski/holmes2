@@ -35,15 +35,8 @@ $(document).ready(function(){
 		}
 	})
 
-	const $menu = $('#menu_box'), $top = $('#top');
 	function scroll() {
-		let window_scrolltop = $(window).scrollTop(), top_height = $top.height() + 8;
-		if(window_scrolltop >= top_height) {
-			$menu.css('top',0);
-		}else{
-			$menu.css('top',top_height - window_scrolltop);
-		}
-		if(window_scrolltop>150){
+		if($(window).scrollTop() > 150){
 			$('#back_to_top').removeClass('back_to_top_hidden');
 		}else{
 			$('#back_to_top').addClass('back_to_top_hidden');
