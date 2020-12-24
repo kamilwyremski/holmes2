@@ -1,8 +1,4 @@
 
-{% if settings.recaptcha_site_key and settings.recaptcha_secret_key %}
-	<script src='https://www.google.com/recaptcha/api.js'></script>
-{% endif %}
-
 <form method="post" enctype="multipart/form-data">
   <input type="hidden" name="action" value="send_message">
   <div class="form-group row">
@@ -33,23 +29,28 @@
       </div>
     </div>
   {% endif %}
-	<div class="form-group row {% if error.captcha %}was-validated{% endif %}">
-  	{% if settings.recaptcha_site_key and settings.recaptcha_secret_key %}
-      <div class="offset-sm-4 col-sm-8 offset-md-2 col-md-10">
-        <div class="g-recaptcha" data-sitekey="{{ settings.recaptcha_site_key }}"></div>
-        {% if error.captcha %}<p class="text-danger">{{ error.captcha }}</p>{% endif %}
+	{% if settings.recaptcha_site_key and settings.recaptcha_secret_key %}
+    <input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+    <div class="row">
+      <div class="col-sm-8 col-md-10 offset-sm-4 offset-md-2">
+        {% if error.captcha %}
+          <p class="text-danger">{{ error.captcha }}</p>
+        {% endif %}
+        <p><small>This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="nofollow">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="nofollow">Terms of Service</a> apply.</small></p>
       </div>
-  	{% else %}
+    </div>
+  {% else %}
+    <div class="form-group row {% if error.captcha %}was-validated{% endif %}">
       <label for="captcha" class="col-sm-4 col-md-2 col-form-label">{{ 'Captcha'|trans }}</label>
       <div class="col-sm-4 col-md-3">
         <img src="{{ path('captcha') }}" alt="captcha">
       </div>
       <div class="col-sm-4 col-md-7">
-        <input type="text" class="form-control" placeholder="abc123" title="{{ 'Enter the code Captcha'|trans }}" name="captcha" id="captcha" required maxlength="32">
+        <input type="text" class="form-control" placeholder="abc123" title="{{ 'Enter the captcha code'|trans }}" name="captcha" id="captcha" required maxlength="32" autocomplete="off">
         {% if error.captcha %}<p class="text-danger">{{ error.captcha }}</p>{% endif %}
       </div>
-  	{% endif %}
-	</div>
+    </div>
+  {% endif %}
   {% if not user.id %}
     <div class="form-group row">
       <div class="col-sm-8 col-md-10 offset-sm-4 offset-md-2">

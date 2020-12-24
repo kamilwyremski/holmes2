@@ -65,7 +65,7 @@ if(isset($_POST['action']) and $_POST['action'] == 'login' and !empty($_POST['se
 		$get_new_session_code = false;
 	}
 
-}elseif(isset($_POST['action']) and $_POST['action']=='register' and isset($_POST['email']) and isset($_POST['username']) and isset($_POST['password']) and isset($_POST['password_repeat']) and (isset($_POST['captcha']) or isset($_POST['g-recaptcha-response']))){
+}elseif(isset($_POST['action']) and $_POST['action']=='register' and isset($_POST['email']) and isset($_POST['username']) and isset($_POST['password']) and isset($_POST['password_repeat']) and (isset($_POST['captcha']) or isset($_POST['recaptcha_response']))){
 
 	$result = $user->register($_POST);
 	if($result['status']){
@@ -78,7 +78,7 @@ if(isset($_POST['action']) and $_POST['action'] == 'login' and !empty($_POST['se
 	}
   	$tab_active = 'register';
 
-}elseif(isset($_POST['action']) and $_POST['action'] == 'reset_password' and !empty($_POST['username']) and (isset($_POST['captcha']) or isset($_POST['g-recaptcha-response']))){
+}elseif(isset($_POST['action']) and $_POST['action'] == 'reset_password' and !empty($_POST['username']) and (isset($_POST['captcha']) or isset($_POST['recaptcha_response']))){
 
 	try{
 		$user->resetPassword($_POST);

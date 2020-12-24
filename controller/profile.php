@@ -26,7 +26,7 @@ if(!empty($_GET['slug'])){
 		$settings['seo_description'] = trans('Profile of').': '.$profile['username'].' - '.$settings['description'];
 		$render_variables['profile'] = $profile;
 
-		if($settings['show_contact_form_profile'] and isset($_POST['action']) and $_POST['action']=='send_message' and !empty($_POST['name']) and (!empty($_POST['email']) or $user->getId()) and !empty($_POST['message']) and (isset($_POST['captcha']) or isset($_POST['g-recaptcha-response']) and (isset($_POST['rules'])) or $user->getId())){
+		if($settings['show_contact_form_profile'] and isset($_POST['action']) and $_POST['action']=='send_message' and !empty($_POST['name']) and (!empty($_POST['email']) or $user->getId()) and !empty($_POST['message']) and (isset($_POST['captcha']) or isset($_POST['recaptcha_response']) and (isset($_POST['rules'])) or $user->getId())){
 
 		if(!settings::checkCaptcha($_POST)){
 			$error['captcha'] = trans('Invalid captcha code. Show thay you are not robot!');

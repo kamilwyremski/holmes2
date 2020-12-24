@@ -34,7 +34,7 @@ if(isset($_GET['id']) and $_GET['id']>0 and classified::checkActive($_GET['id'],
 		}
 	}
 
-	if($settings['show_contact_form_classified'] and isset($_POST['action']) and $_POST['action']=='send_message' and !empty($_POST['name']) and (!empty($_POST['email']) or $user->getId()) and !empty($_POST['message']) and (isset($_POST['captcha']) or isset($_POST['g-recaptcha-response'])) and (isset($_POST['rules']) or $user->getId())){
+	if($settings['show_contact_form_classified'] and isset($_POST['action']) and $_POST['action']=='send_message' and !empty($_POST['name']) and (!empty($_POST['email']) or $user->getId()) and !empty($_POST['message']) and (isset($_POST['captcha']) or isset($_POST['recaptcha_response'])) and (isset($_POST['rules']) or $user->getId())){
 
 		if(!settings::checkCaptcha($_POST)){
 			$error['captcha'] = trans('Invalid captcha code. Show thay you are not robot!');
@@ -85,7 +85,7 @@ if(isset($_GET['id']) and $_GET['id']>0 and classified::checkActive($_GET['id'],
 		classified::activate($_GET['id']);
 		$render_variables['alert_success'][] = trans('The classified has been correctly activated on the site');
 
-	}elseif(isset($_POST['action']) and $_POST['action']=='report_abuse' and (!empty($_POST['email']) or $user->getId()) and !empty($_POST['message']) and (isset($_POST['captcha']) or isset($_POST['g-recaptcha-response']))){
+	}elseif(isset($_POST['action']) and $_POST['action']=='report_abuse' and (!empty($_POST['email']) or $user->getId()) and !empty($_POST['message']) and (isset($_POST['captcha']) or isset($_POST['recaptcha_response']))){
 
 		if(!settings::checkCaptcha($_POST)){
 			$error = trans('Invalid captcha code. Show thay you are not robot!');

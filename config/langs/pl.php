@@ -670,3 +670,4 @@ $translate['Email address has been activated'] = 'Adres email został aktywowany
 $translate['The position affects the display on the list of classifieds and on the page with the classified'] = 'Pozycja wpływa na wyświetlanie na liście ogłoszeń i na stronie z ogłoszeniem';
 $translate['Maximum attachment size'] = 'Maksymalny rozmiar załącznika';
 $translate['The attachment exceeds the allowed size'] = 'Załącznik przekracza dozwolony rozmiar';
+$translate['Invalid captcha code. Show that you are not robot!'] = 'Nieprawidłowa captcha. Potwierdź, że nie jesteś robotem!';

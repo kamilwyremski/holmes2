@@ -184,6 +184,20 @@
     </script>
 		<script src="views/{{ settings.template }}/js/engine.js?{{ settings.assets_version }}"></script>
 
+		{% if settings.recaptcha_site_key and settings.recaptcha_secret_key %}
+			<script src="https://www.google.com/recaptcha/api.js?render={{ settings.recaptcha_site_key }}"></script>
+			<script>
+				grecaptcha.ready(function () {
+					grecaptcha.execute('{{ settings.recaptcha_site_key }}', { action: 'login' }).then(function (token) {
+						var elms = document.getElementsByClassName('recaptchaResponse')
+						for (var i = 0; i < elms.length; i++) {
+							elms[i].setAttribute("value", token);
+						}
+					});
+				});
+			</script>
+		{% endif %}
+		
 		<script>(function(d, s, id) {
 			var js, fjs = d.getElementsByTagName(s)[0];
 			if (d.getElementById(id)) return;

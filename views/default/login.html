@@ -1,13 +1,6 @@
 
 {% extends "main.tpl" %}
 
-{% block javascript %}
-	{{ parent() }}
-	{% if settings.recaptcha_site_key and settings.recaptcha_secret_key %}
-		<script src='https://www.google.com/recaptcha/api.js'></script>
-	{% endif %}
-{% endblock %}
-
 {% block content %}
 <div class="page_box">
 	<br>
@@ -109,15 +102,14 @@
 									<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation"></i> {{ error.captcha }}</div>
 								{% endif %}
 								{% if settings.recaptcha_site_key and settings.recaptcha_secret_key %}
-									<div class="form-group">
-										<div class="g-recaptcha" data-sitekey="{{ settings.recaptcha_site_key }}"></div>
-									</div>
+									<input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+									<p><small>This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="nofollow">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="nofollow">Terms of Service</a> apply.</small></p>
 								{% else %}
 									<div class="form-group">
-										<label for="captcha">{{ 'Enter the code Captcha'|trans }}</label>
+										<label for="captcha">{{ 'Enter the captcha code'|trans }}</label>
 										<br>
 										<img src="{{ path('captcha') }}" alt="captcha">
-										<input type="text" class="form-control" placeholder="abc123" title="{{ 'Enter the code Captcha'|trans }}" name="captcha" required maxlength="32">
+										<input type="text" class="form-control" placeholder="abc123" title="{{ 'Enter the captcha code'|trans }}" name="captcha" required maxlength="32" autocomplete="off">
 									</div>
 								{% endif %}
 								<input type="submit" class="btn btn-1 text-uppercase" value="{{ 'Register'|trans }}">
@@ -153,14 +145,14 @@
 										<input type="text" class="form-control" name="username" placeholder="{{ 'example@example.com'|trans }}" required maxlength="64" value="{{ input.username }}">
 									</div>
 									{% if settings.recaptcha_site_key and settings.recaptcha_secret_key %}
-										<div class="form-group">
-											<div class="g-recaptcha" data-sitekey="{{ settings.recaptcha_site_key }}"></div>
-										</div>
+										<input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+										<p><small>This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="nofollow">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="nofollow">Terms of Service</a> apply.</small></p>
 									{% else %}
 										<div class="form-group">
-											<label for="captcha">{{ 'Enter the code Captcha'|trans }}</label><br>
+											<label for="captcha">{{ 'Enter the captcha code'|trans }}</label>
+											<br>
 											<img src="{{ path('captcha') }}" alt="captcha">
-											<input type="text" class="form-control" placeholder="abc123" title="{{ 'Enter the code Captcha'|trans }}" name="captcha" required maxlength="32" title="{{ 'Enter the code Captcha'|trans }}">
+											<input type="text" class="form-control" placeholder="abc123" title="{{ 'Enter the captcha code'|trans }}" name="captcha" required maxlength="32" autocomplete="off">
 										</div>
 									{% endif %}
 									<input type="submit" class="btn btn-1 text-uppercase" value="{{ 'Reset password'|trans }}">

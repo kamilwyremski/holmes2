@@ -312,7 +312,8 @@
 				  </div>
 					<div class="form-group">
 						{% if settings.recaptcha_site_key and settings.recaptcha_secret_key %}
-							<div class="g-recaptcha" data-sitekey="{{ settings.recaptcha_site_key }}"></div>
+							<input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+							<p><small>This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="nofollow">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="nofollow">Terms of Service</a> apply.</small></p>
 						{% else %}
 							<label for="captcha">{{ 'Captcha'|trans }}</label>
 							<img src="{{ path('captcha') }}" alt="captcha"><br>
