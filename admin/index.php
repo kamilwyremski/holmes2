@@ -18,17 +18,16 @@ header('Content-Type: text/html; charset=utf-8');
 
 session_start();
 
-require_once('../vendor/autoload.php');
-$loader = new Twig_Loader_Filesystem('views');
-$twig = new Twig_Environment($loader, [
+require_once('../config/config.php');
+
+$loader = new \Twig\Loader\FilesystemLoader('views');
+$twig = new \Twig\Environment($loader, [
     'cache' => 'tmp',
 ]);
-$twig->addFilter(new Twig_Filter('trans', 'trans'));
-$twig->addFilter(new Twig_Filter('showCurrency', 'showCurrency'));
-$twig->addFunction(new Twig_Function('path', 'path'));
-$twig->addFunction(new Twig_Function('generateToken', 'generateToken'));
-
-require_once('../config/config.php');
+$twig->addFilter(new \Twig\TwigFilter('trans', 'trans'));
+$twig->addFilter(new \Twig\TwigFilter('showCurrency', 'showCurrency'));
+$twig->addFunction(new \Twig\TwigFunction('path', 'path'));
+$twig->addFunction(new \Twig\TwigFunction('generateToken', 'generateToken'));
 
 $admin = new admin();
 
