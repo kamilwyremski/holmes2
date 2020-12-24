@@ -23,7 +23,10 @@ class newsletter {
 		$newsletter_info = '';
 
 		if(isset($_POST['action']) and $_POST['action']=='newsletter_add' and !empty($_POST['email']) and isset($_POST['rules']) and checkToken('newsletter_add')){
-			if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+			
+			if(!settings::checkCaptcha($_POST)){
+				$newsletter_error = trans('Invalid captcha code. Show that you are not robot!');
+			}elseif(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 				$newsletter_error = trans('Incorrect e-mail address.');
 			}else{
 				$sth = $db->prepare('SELECT 1 FROM '._DB_PREFIX_.'newsletter WHERE email=:email LIMIT 1');

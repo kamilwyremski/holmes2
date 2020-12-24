@@ -33,9 +33,6 @@
 	{{ settings.code_head|raw }}
 </head>
 <body>
-	<div id="top" class="container-fluid">
-		<p class="text-right small text-white mb-0">Holmes2.2</p>
-	</div>
 	<nav class="navbar fixed-top navbar-expand-md navbar-light" id="menu_box">
 		<a class="navbar-brand" href="{{ settings.base_url }}" title="{{ settings.title }}">{% if settings.logo %}<img src="{{ settings.logo }}" alt="{{ settings.title }}">{% else %}{{ settings.title }}{% endif %}</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,7 +106,17 @@
                   <input type="checkbox" name="rules" class="custom-control-input" id="newsletter_rules" required {% if newsletter_input.rules %}checked{% endif %}>
                   <label class="custom-control-label" for="newsletter_rules">{{ 'Accepts the terms and conditions and the privacy policy'|trans }}</label>
                 </div>
-              </div>
+							</div>
+							<div class="form-group">
+								{% if settings.recaptcha_site_key and settings.recaptcha_secret_key %}
+									<input type="hidden" name="recaptcha_response" class="recaptchaResponse">
+									<p><small>This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="nofollow">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="nofollow">Terms of Service</a> apply.</small></p>
+								{% else %}
+									<label for="newsletter_captcha">{{ 'Captcha'|trans }}</label>
+									<img src="{{ path('captcha') }}" alt="captcha">
+									<input type="text" class="form-control" placeholder="abc123" title="{{ 'Enter the captcha code'|trans }}" name="captcha" id="captcha" required maxlength="32">
+								{% endif %}
+							</div>
               <input type="submit" class="btn btn-2 text-uppercase" value="{{ 'Subscribe'|trans }}">
 				    </form>
             <br><br>
@@ -141,7 +148,6 @@
 		</div>
 		<div id="footer_bottom" class="text-center">
 			{{ settings.footer_bottom|raw }}
-			{{ settings.footer_text|raw }}
 		</div>
 	</footer>
 
