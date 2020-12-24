@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
- * The script of website with classifieds MotoNotice
- * Copyright (c) 2017 - 2020 by Kamil Wyremski
+ * The script of website of real estate HOLMES2
+ * Copyright (c) 2019 - 2021 by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
