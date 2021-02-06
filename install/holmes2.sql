@@ -506,7 +506,7 @@ INSERT INTO `settings` (`name`, `value`) VALUES
 ('facebook_secret', ''),
 ('facebook_side_panel', ''),
 ('favicon', '/upload/images/favicon.png'),
-('footer_bottom', '<p class=\"mb-2\">Demo skryptu bazy nieruchomości HOLMES2</p>\r\n<p class=\"small\">Project 2019 - 2021 by <a href=\"https://itworksbetter.net\" target=\"_blank\" title=\"Creating websites\">IT Works Better</a></p>'),
+('footer_bottom', '<p class=\"mb-2\">Demo skryptu bazy nieruchomości HOLMES 2.2</p>\r\n<p class=\"small\">Project 2019 - 2021 by <a href=\"https://itworksbetter.net\" target=\"_blank\" title=\"Creating websites\">IT Works Better</a></p>'),
 ('footer_top', '<p>Skrypt nieruchomości HOLMES2<br />\r\nZnajdź wymarzone mieszkanie lub dom! Nasza baza prezentuje nieruchomości z całej Polski a także z zagranicy. Znajdziesz tutaj domy jedno i wielorodzinne, mieszkania, apartamenty, działki, garaże i wiele innych obiekt&oacute;w!&nbsp;</p>\r\n\r\n<p>To jest strona pokazowa skryptu - służy jedynie pokazaniu jego funkcjonalności. Prosimy nie dodawać ofert prawdziwych obiekt&oacute;w.</p>\r\n\r\n<p>Skrypt dostępny do zakupu na <a href=\"https://skrypty.sattel.pl/skrypty-stron-www/139-skrypt-bazy-nieruchomosci-holmes2.html\">skrypty.sattel.pl/skrypty-stron-www/139-skrypt-bazy-nieruchomosci-holmes2.html</a></p>\r\n'),
 ('generate_sitemap', '1'),
 ('google_id', ''),
