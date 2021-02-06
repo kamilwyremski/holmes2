@@ -62,7 +62,8 @@
 								</span>
 							</p>{% endif %}
 							<p class="text-muted" itemprop="disambiguatingDescription">{{ classified.description|striptags|slice(0,120) }}{% if classified.description|striptags %}...{% endif %}</p>
-							{% if classified.category_name %}<p><a href="{{ path('classifieds') }}?category={{ classified.category_id }}" title="{{ 'Category'|trans }}: {{ classified.category_name }}" itemprop="category" class="main-color-2">{{ classified.category_name }}</a></p>{% endif %}
+							{% if classified.category_name %}<p><a href="{{ path('classifieds') }}?category={{ classified.category_id }}" title="{{ 'Category'|trans }}: {{ classified.category_name }}" class="main-color-2">{{ classified.category_name }}</a></p>{% endif %}
+							<p class="d-none" itemprop="telephone">{{ classified.phone }}</p>
 						</div>
 					</div>
 					{% if controller=='my_classifieds' %}

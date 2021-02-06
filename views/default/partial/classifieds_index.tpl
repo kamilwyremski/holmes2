@@ -12,7 +12,9 @@
 				{% elseif classified.price>0 %}
 					<h6><span itemprop="priceRange">{{ classified.price|showCurrency }}</span> {% if classified.price_negotiate %}<span class="small">({{ 'to negotiate'|trans }})</span>{% endif %}</h6>
 				{% endif %}
-				{% if classified.category_name %}<p itemprop="category" class="category_name">{{ classified.category_name }}</p>{% endif %}
+				{% if classified.category_name %}<p class="category_name">{{ classified.category_name }}</p>{% endif %}
+				<p class="d-none" itemprop="address">{{ classified.address }}</p>
+				<p class="d-none" itemprop="telephone">{{ classified.phone }}</p>
 			</div>
 		</a>
 	</div>

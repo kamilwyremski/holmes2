@@ -67,7 +67,7 @@
 				{% if classified.type_name %}[<a href="{{ path('classifieds') }}?type={{ classified.type_slug }}" title="{{ 'Classified type'|trans }}: {{ classified.type_name }}" class="main-color-2">{{ classified.type_name }}</a>]{% endif %}
 				{% if classified.categories %}
 					{% for category in classified.categories %}
-						<a href="{{ path('classifieds') }}?category={{ category.id }}" title="{{ 'Category'|trans }}: {{ item.name }}" class="main-color-2"><span {% if loop.last %}itemprop="category"{% endif %}>{{ category.name }}</span></a>
+						<a href="{{ path('classifieds') }}?category={{ category.id }}" title="{{ 'Category'|trans }}: {{ item.name }}" class="main-color-2">{{ category.name }}</a>
 						{% if not loop.last %} > {% endif %}
 					{% endfor %}
 				{% endif %}
