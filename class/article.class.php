@@ -31,7 +31,7 @@ class article {
 	public static function show(int $id){
 		global $db;
 		$sth = $db->prepare('SELECT * FROM '._DB_PREFIX_.'article WHERE id=:id LIMIT 1');
-		$sth->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
+		$sth->bindValue(':id', $id, PDO::PARAM_INT);
 		$sth->execute();
 		return $sth->fetch(PDO::FETCH_ASSOC);
 	}
