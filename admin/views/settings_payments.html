@@ -148,6 +148,35 @@
 			<label><input type="checkbox" name="p24_sandbox" title="{{ 'Przelewy24 - sandbox'|trans }}" {% if settings.p24_sandbox %}checked{% endif %}> {{ 'Przelewy24 - sandbox'|trans }}</label>
 		</div>
 	</div>
+	<hr>
+	<div class="form-group row">
+		<div class="col-sm-9 offset-sm-3">
+			<label><h5><input type="checkbox" name="pay_by_paynow" title="{{ 'Pay by Paynow'|trans }}" {% if settings.pay_by_paynow %}checked{% endif %} class="set_required" data-target="target_pay_by_paynow"> {{ 'Pay by Paynow'|trans }}</h5></label>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="paynow_apikey" class="col-sm-3 col-form-label">{{ 'Paynow API Key'|trans }}:</label>
+		<div class="col-sm-9">
+			<input type="text" name="paynow_apikey" title="{{ 'Paynow API Key'|trans }}" value="{{ settings.paynow_apikey }}" class="target_pay_by_paynow form-control">
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="paynow_signaturekey" class="col-sm-3 col-form-label">{{ 'Paynow Signature KEY'|trans }}:</label>
+		<div class="col-sm-9">
+			<input type="text" name="paynow_signaturekey" title="{{ 'Paynow Signature KEY'|trans }}" value="{% if _ADMIN_TEST_MODE_ %}test{% else %}{{ settings.paynow_signaturekey }}{% endif %}" class="target_pay_by_paynow form-control">
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="paynow_currency" class="col-sm-3 col-form-label">{{ 'Paynow currency'|trans }}:</label>
+		<div class="col-sm-9">
+			<input type="text" name="paynow_currency" title="{{ 'Paynow currency'|trans }}" value="{{ settings.paynow_currency }}" class="target_pay_by_paynow form-control">
+		</div>
+	</div>
+	<div class="form-group row">
+		<div class="col-sm-9 offset-sm-3">
+			<label><input type="checkbox" name="paynow_sanbox" title="{{ 'Paynow sandbox'|trans }}" {% if settings.paynow_sanbox %}checked{% endif %}> {{ 'Paynow sandbox'|trans }}</label>
+		</div>
+	</div>
 	<div class="form-group row">
 		<div class="col-sm-9 offset-sm-3">
 			<input type="submit" value="{{ 'Save'|trans }}" class="btn btn-primary">

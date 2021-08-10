@@ -23,8 +23,8 @@ if($admin->is_logged()){
 	if(!_ADMIN_TEST_MODE_ and isset($_POST['action']) and $_POST['action']=='save_settings_payments' and checkToken('admin_save_settings_payments')){
 
 		settings::saveArrays(
-			['currency','add_cost','promote_days','promote_cost','dotpay_id','dotpay_pin','dotpay_currency','paypal_email','paypal_lc','paypal_currency','p24_merchant_id','p24_pos_id','p24_crc','p24_currency'],
-			['promote_only_by_author','pay_by_dotpay','dotpay_test_mode','pay_by_paypal','paypal_test_mode','pay_by_p24','p24_sandbox']
+			['currency','add_cost','promote_days','promote_cost','dotpay_id','dotpay_pin','dotpay_currency','paypal_email','paypal_lc','paypal_currency','p24_merchant_id','p24_pos_id','p24_crc','p24_currency','paynow_apikey','paynow_signaturekey','paynow_currency'],
+			['promote_only_by_author','pay_by_dotpay','dotpay_test_mode','pay_by_paypal','paypal_test_mode','pay_by_p24','p24_sandbox','pay_by_paynow','paynow_sanbox']
 		);
 		getSettings();
 		$render_variables['alert_success'][] = trans('Changes have been saved');

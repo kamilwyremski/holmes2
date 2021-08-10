@@ -95,6 +95,9 @@
 							{% if settings.pay_by_p24 %}
 								<input type="submit" value="{{ 'Pay by Przelewy24'|trans }}" class="btn btn-primary" formaction="{{ settings.base_url }}/php/payment_p24.php">
 							{% endif %}
+							{% if settings.pay_by_paynow %}
+								<input type="submit" value="{{ 'Pay by Paynow'|trans }}" class="btn btn-primary" formaction="{{ settings.base_url }}/php/payment_paynow.php">
+							{% endif %}
 						</form>
 					<br><br>
 					</div>
@@ -191,7 +194,7 @@
 					{% if settings.show_contact_form_classified %}
 						<li class="nav-item"><a href="#contact_form" class="nav-link main-color-2" data-toggle="tab" role="tab" aria-controls="contact_form" aria-selected="false">{{ 'Contact form'|trans }}</a></li>
 					{% endif %}
-					{% if (not settings.promote_only_by_author or (classified.user_id==user.id and user.id)) and (settings.pay_by_dotpay or settings.pay_by_paypal or settings.pay_by_p24) %}
+					{% if (not settings.promote_only_by_author or (classified.user_id==user.id and user.id)) and (settings.pay_by_dotpay or settings.pay_by_paypal or settings.pay_by_p24 or settings.pay_by_paynow) %}
 						<li class="nav-item"><a href="#promote" class="nav-link main-color-2" data-toggle="tab" role="tab" aria-controls="promote" aria-selected="false">{{ 'Promote'|trans }}</a></li>
 					{% endif %}
 				 </ul>
@@ -212,7 +215,7 @@
 							<br>
 						</div>
 					{% endif %}
-					{% if (not settings.promote_only_by_author or (classified.user_id==user.id and user.id)) and (settings.pay_by_dotpay or settings.pay_by_paypal or settings.pay_by_p24) %}
+					{% if (not settings.promote_only_by_author or (classified.user_id==user.id and user.id)) and (settings.pay_by_dotpay or settings.pay_by_paypal or settings.pay_by_p24 or settings.pay_by_paynow) %}
 						<div class="tab-pane container fade" id="promote" role="tabpanel" aria-labelledby="promote-tab">
 							<br>
 							{% if classified.active %}
@@ -236,6 +239,9 @@
 										{% endif %}
 										{% if settings.pay_by_p24 %}
 											<input type="submit" value="{{ 'Pay by Przelewy24'|trans }}" class="btn btn-primary" formaction="{{ settings.base_url }}/php/payment_p24.php">
+										{% endif %}
+										{% if settings.pay_by_paynow %}
+											<input type="submit" value="{{ 'Pay by Paynow'|trans }}" class="btn btn-primary" formaction="{{ settings.base_url }}/php/payment_paynow.php">
 										{% endif %}
 									</form>
 								</div>
