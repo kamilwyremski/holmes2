@@ -320,16 +320,16 @@
         },
         {
             "name": "pay-now/paynow-php-sdk",
-            "version": "2.1.3",
+            "version": "2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pay-now/paynow-php-sdk.git",
-                "reference": "76b6ba3a9a346ceaa33c781868362a7006b63901"
+                "reference": "9bd2e7e9ce0ec876a6d7cc16c104a2153cbdfd5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pay-now/paynow-php-sdk/zipball/76b6ba3a9a346ceaa33c781868362a7006b63901",
-                "reference": "76b6ba3a9a346ceaa33c781868362a7006b63901",
+                "url": "https://api.github.com/repos/pay-now/paynow-php-sdk/zipball/9bd2e7e9ce0ec876a6d7cc16c104a2153cbdfd5c",
+                "reference": "9bd2e7e9ce0ec876a6d7cc16c104a2153cbdfd5c",
                 "shasum": ""
             },
             "require": {
@@ -382,9 +382,9 @@
             ],
             "support": {
                 "issues": "https://github.com/pay-now/paynow-php-sdk/issues",
-                "source": "https://github.com/pay-now/paynow-php-sdk/tree/v2.1.3"
+                "source": "https://github.com/pay-now/paynow-php-sdk/tree/v2.1.4"
             },
-            "time": "2021-07-13T09:23:43+00:00"
+            "time": "2021-11-02T07:52:06+00:00"
         },
         {
             "name": "php-http/curl-client",
