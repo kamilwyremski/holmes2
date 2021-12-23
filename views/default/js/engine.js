@@ -5,8 +5,6 @@ $(document).ready(function(){
 		$(this).parents('.d-block').remove();
 	})
 
-	$('.lazy').Lazy();
-
 	$('[data-toggle="collapse"]').click(function(){
 		$(this).blur();
 	})

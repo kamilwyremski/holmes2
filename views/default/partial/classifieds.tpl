@@ -40,7 +40,7 @@
 					<div class="col-md-3 text-center">
 						{% if classified.promoted %}<div class="bar_promoted">{{ 'Promoted'|trans }}</div>{% endif %}
 						<a href="{{ path('classified',classified.id,classified.slug) }}" title="{{ classified.name }}" itemprop="url">
-							<img {% if classified.thumb %}data-src="upload/photos/{{ classified.thumb }}"{% endif %} src="views/{{ settings.template }}/images/no_image.png" alt="{{ classified.name }}" onerror="this.src='views/{{ settings.template }}/images/no_image.png'" itemprop="image" class="{% if classified.thumb %}lazy{% endif %}">
+							<img src="{% if classified.thumb %}upload/photos/{{ classified.thumb }}{% else %}views/{{ settings.template }}/images/no_image.png{% endif %}" alt="{{ classified.name }}" onerror="this.src='views/{{ settings.template }}/images/no_image.png'" itemprop="image" loading="lazy">
 						</a>
 					</div>
 					<div class="col-md-9 overflow_hidden">
