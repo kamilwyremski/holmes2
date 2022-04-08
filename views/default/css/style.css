@@ -55,8 +55,14 @@ a.main-color-2:hover{
 .content *{
 	max-width: 100%;
 }
-.social_inline_block{
-	display: inline-block; vertical-align: top; padding: 7px;
+.social_share_box{
+	display: flex; padding-top: 5px;
+}
+.social_share_box i{
+	color: #384260; font-size: 18px; padding: 0 0 7px 14px;
+}
+.social_share_box i:hover{
+	color: #20273b;
 }
 #google_maps{
 	height: 400px

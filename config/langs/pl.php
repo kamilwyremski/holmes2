@@ -675,3 +675,5 @@ $translate['show e-mail...'] = 'pokaż adres email...';
 $translate['show phone...'] = 'pokaż numer telefonu...';
 $translate['to negotiate'] = 'do negocjacji';
 $translate['unique'] = 'unikalne';
+
+$translate['Share'] = 'Udostępnij';

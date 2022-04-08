@@ -17,7 +17,7 @@
 			<label><input type="checkbox" name="social_facebook" title="{{ 'Show icon sharing from'|trans }} Facebook" {% if settings.social_facebook %}checked{% endif %}> {{ 'Show icon sharing from'|trans }} Facebook</label><br>
 			<label><input type="checkbox" name="social_pinterest" title="{{ 'Show icon sharing from'|trans }} Pinterest" {% if settings.social_pinterest %}checked{% endif %}> {{ 'Show icon sharing from'|trans }} Pinterest</label><br>
 			<label><input type="checkbox" name="social_twitter" title="{{ 'Show icon sharing from'|trans }} Twitter" {% if settings.social_twitter %}checked{% endif %}> {{ 'Show icon sharing from'|trans }} Twitter</label><br>
-			<label><input type="checkbox" name="social_wykop" title="{{ 'Show icon sharing from'|trans }} Wykop.pl" {% if settings.social_wykop %}checked{% endif %}> {{ 'Show icon sharing from'|trans }} Wykop.pl</label>
+			<label><input type="checkbox" name="social_linkedin" title="{{ 'Show icon sharing from'|trans }} Linkedin" {% if settings.social_linkedin %}checked{% endif %}> {{ 'Show icon sharing from'|trans }} Linkedin</label>
 		</div>
 	</div>
 	<hr>
@@ -30,8 +30,9 @@
 	<div class="form-group row">
 		<div class="col-sm-9 offset-sm-3">
 			<label><input type="checkbox" name="facebook_side_panel" title="{{ 'Show side panel with Facebook'|trans }}" {% if settings.facebook_side_panel %}checked{% endif %} class="set_required" data-target="target_facebook_side_panel"> {{ 'Show side panel with Facebook'|trans }}</label><br>
-			<label><input type="checkbox" name="allow_comments_fb_profile" title="{{ 'Allow commenting user profile via Facebook account'|trans }}" {% if settings.allow_comments_fb_profile %}checked{% endif %}> {{ 'Allow commenting user profile via Facebook account'|trans }}</label>
-			<label><input type="checkbox" name="allow_comments_fb_article" title="{{ 'Allow comments on articles via Facebook account'|trans }}" {% if settings.allow_comments_fb_article %}checked{% endif %}> {{ 'Allow comments on articles via Facebook account'|trans }}</label>
+			<label><input type="checkbox" name="allow_comments_fb_profile" title="{{ 'Allow commenting user profile via Facebook account'|trans }}" {% if settings.allow_comments_fb_profile %}checked{% endif %}> {{ 'Allow commenting user profile via Facebook account'|trans }}</label><br>
+			<label><input type="checkbox" name="allow_comments_fb_article" title="{{ 'Allow comments on articles via Facebook account'|trans }}" {% if settings.allow_comments_fb_article %}checked{% endif %}> {{ 'Allow comments on articles via Facebook account'|trans }}</label><br>
+			<small class="form-text text-muted"><a href="https://developers.facebook.com/docs/plugins/comments/" title="Facebook Comments Documentation" target="_blank" rel="nofollow noopener">https://developers.facebook.com/docs/plugins/comments/</a></small>
 		</div>
 	</div>
 	<hr>

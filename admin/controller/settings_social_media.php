@@ -24,7 +24,7 @@ if($admin->is_logged()){
 
     settings::saveArrays(
 			['url_facebook','facebook_lang','facebook_api','facebook_secret','google_id','google_secret'],
-			['social_facebook','social_pinterest','social_twitter','social_wykop','facebook_side_panel','allow_comments_fb_profile','allow_comments_fb_article','facebook_login','google_login']
+			['social_facebook','social_pinterest','social_twitter','social_linkedin','facebook_side_panel','allow_comments_fb_profile','allow_comments_fb_article','facebook_login','google_login']
 		);
 		getSettings();
 		$render_variables['alert_success'][] = trans('Changes have been saved');

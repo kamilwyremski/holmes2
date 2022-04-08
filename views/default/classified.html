@@ -255,31 +255,19 @@
 				<div class="d-print-none float-right">
 					<button class="btn btn-link main-color-2" data-toggle="modal" data-target="#modal_report_abuse"><small>{{ 'Report abuse'|trans }}</small></button>
 				</div>
-				<div class="d-print-none">
+				<div class="d-print-none social_share_box">
+					<small>{{ 'Share'|trans }}: </small>
 					{% if settings.social_facebook %}
-						<div class="social_inline_block" style="padding-top:2px">
-							<div class="fb-like" data-href="{{ path('classified',classified.id,classified.slug) }}" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
-						</div>
+						<a href="https://www.facebook.com/sharer/sharer.php?u={{ path('classified',classified.id,classified.slug) }}" title="{{ 'Share'|trans }} Facebook" rel="nofollow" target="_blank"><i class="fab fa-facebook"></i></a>
 					{% endif %}
 					{% if settings.social_twitter %}
-						<div class="social_inline_block">
-							<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ path('classified',classified.id,classified.slug) }}" data-lang="{{ settings.lang }}">Tweet</a>
-							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-						</div>
-					{% endif %}
-					{% if settings.social_wykop %}
-						<div class="social_inline_block">
-							<script>
-								var widget_url='https://www.wykop.pl/dataprovider/diggerwidget/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title)+'&desc='+encodeURIComponent('{{ settings.description|replace({"\n": "", "\r\n": "", "\t": "", "\n\r": ""}) }}')+'&bg=FFFFFF&type=compact2&bold=true';
-								document.write('<div><iframe src="'+widget_url+'" style="border:none;width:100px;height:20px;overflow:hidden;margin:0;padding:0;" frameborder="0" border="0"></iframe></div>');
-							</script>
-						</div>
+						<a href="https://twitter.com/intent/tweet?text={{ classified.name }} {{ path('classified',classified.id,classified.slug) }}" title="{{ 'Share'|trans }} Twitter" rel="nofollow" target="_blank"><i class="fab fa-twitter"></i></a>
 					{% endif %}
 					{% if settings.social_pinterest %}
-						<div class="social_inline_block" style="padding-top: 2px;">
-							<a href="//www.pinterest.com/pin/create/button/?url={{ path('classified',classified.id,classified.slug) }}" data-pin-do="buttonPin" data-pin-config="beside"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png" alt="Pinterest"/></a>
-							<script async src="//assets.pinterest.com/js/pinit.js"></script>
-						</div>
+						<a href="https://pinterest.com/pin/create/button/?url={{ path('classified',classified.id,classified.slug) }}&media={{ settings.logo_facebook }}" title="{{ 'Share'|trans }} Pinterest" rel="nofollow" target="_blank"><i class="fab fa-pinterest"></i></a>
+					{% endif %}
+					{% if settings.social_linkedin %}
+						<a href="https://www.linkedin.com/shareArticle?mini=true&url={{ path('classified',classified.id,classified.slug) }}&title={{ classified.name }}" title="{{ 'Share'|trans }} LInkedIn" rel="nofollow" target="_blank"><i class="fab fa-linkedin"></i></a>
 					{% endif %}
 				</div>
 			</div>
