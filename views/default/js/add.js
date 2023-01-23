@@ -10,25 +10,27 @@ $(function(){
 	});
 
 	$("#form_add_classified").submit(function(){
-		$last = $("select[name=category_id]:enabled").last();
-		if($last.val()==""){
+		const $last = $("select[name=category_id]:enabled").last();
+		if($last.val() == ""){
 			$last.attr("disabled", true);
 		}
 	})
 
 	$("#input_select_photo").change(function (){
-		$this = $(this);
-		var flag = true, number_photos = $this[0].files.length, photo_count = $("#preview_photos .img-thumbnail").length;
-		var progress_bar_value = 0;
+		const $this = $(this);
+		const number_photos = $this[0].files.length;
+		let flag = true;
+		let photo_count = $("#preview_photos .img-thumbnail").length;
+		let progress_bar_value = 0;
 		if(number_photos && (!photo_max || photo_max>photo_count)){
 			$("#photos_progress").show();
 			$("#preview_load").css("display", "inline-block");
-			var $progress_bar = $("#photos_progress").find(".progress-bar");
+			const $progress_bar = $("#photos_progress").find(".progress-bar");
 			$("#photos_info").hide().html("");
 			$("#box_add_classified input[type=submit]").prop("disabled", true);
 			$.each($this[0].files, function(index, value){
 				if(flag){
-					data_photo =  new FormData();
+					const data_photo = new FormData();
 					data_photo.append("action", "add_photo");
 					data_photo.append("count_photo", photo_count);
 					data_photo.append("file", $this[0].files[index]);
@@ -48,7 +50,7 @@ $(function(){
 									$("#photos_info").show().html(data.info);
 								}
 							}
-							if(index===(number_photos-1)){
+							if(index === (number_photos-1)){
 								$("#preview_load, #photos_progress").hide();
 								$("#box_add_classified input[type=submit]").prop("disabled", false);
 								$progress_bar.css("width", "0%").attr("aria-valuenow", "0").text("0%");
@@ -57,7 +59,7 @@ $(function(){
 								$progress_bar.css("width", progress_bar_value+"%").attr("aria-valuenow", progress_bar_value).text(progress_bar_value+"%");
 							}
 						},
-						error: function (request, status, error) {
+						error: function () {
 							$("#preview_load, #photos_progress").hide();
 							$("#box_add_classified input[type=submit]").prop("disabled", false);
 							flag = false;
@@ -74,7 +76,7 @@ $(function(){
 	})
 
 	$("#button_get_coordinates").click(function(){
-		let $form = $('#form_add_classified');
+		const $form = $('#form_add_classified');
 		let address = $form.find("input[name=address]").val();
 		if($form.find("[name=state_id]").length && $form.find("[name=state_id]").val()!=""){
 			address += " "+$form.find("[name=state_id] option:selected").text();
@@ -113,7 +115,7 @@ angular.module("addClassified", []).controller("addClassified", function($scope,
 	$scope.loadCategories = function(select_category_id=0,category_id=0,load_options=1){
 		$scope.waiting_for_response = true;
 		$scope.select_category_id = select_category_id;
-		for(var i = 0; i < $scope.list_categories.length; i++) {
+		for(let i = 0; i < $scope.list_categories.length; i++) {
 			if($scope.list_categories[i].category_id == select_category_id) {
 				$scope.list_categories.splice((i+1), $scope.list_categories.length);break;
 			}
@@ -121,8 +123,8 @@ angular.module("addClassified", []).controller("addClassified", function($scope,
 		$http.pendingRequests.forEach(function(request) {
 			if(request.cancel){request.cancel.resolve();}
 		});
-		var cancel = $q.defer();
-		var request = {
+		const cancel = $q.defer();
+		const request = {
 			method: "POST",
 			url: location.href,
 			data: $.param({"action":"get_categories_and_options", "category_id":category_id, "load_options":load_options}),

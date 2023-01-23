@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
- * The script of website of real estate HOLMES2 v2.3
- * Copyright (c) 2019 - 2022 by IT Works Better https://itworksbetter.net
+ * The script of website of real estate HOLMES2 v2.5.1
+ * Copyright (c) 2019 - 2023 by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
