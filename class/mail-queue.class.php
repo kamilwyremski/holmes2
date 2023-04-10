@@ -32,7 +32,7 @@ class mailQueue {
 		$sth = $db->query('SELECT * FROM '._DB_PREFIX_.'mails_queue ORDER BY priority DESC, id LIMIT '.$limit);
 		while ($row = $sth->fetch(PDO::FETCH_ASSOC)){
 			$data = @unserialize($row['data']);
-			if(mail::send($row['action'], $row['receiver'],$data)){
+			if(mail::send($row['action'], $row['receiver'], $data)){
 				$sth2 = $db->prepare('DELETE FROM `'._DB_PREFIX_.'mails_queue` WHERE id=:id LIMIT 1');
 				$sth2->bindValue(':id', $row['id'], PDO::PARAM_INT);
 				$sth2->execute();
