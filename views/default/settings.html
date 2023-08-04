@@ -22,7 +22,7 @@
 			<h4>{{ 'Statistics'|trans }}</h4>
 		</div>
 		<table class="table table-striped table-bordered" style="width: auto !important; margin: auto;">
-			<tr><td>{{ 'Username'|trans }}:</td><td><a href="{{ path('profile',user.id,user.username) }}" title="{{ user.username }}" class="main-color-2">{{ user.username }}</a></td></tr>
+			<tr><td>{{ 'Username'|trans }}:</td><td><a href="{{ path('profile',0,user.username) }}" title="{{ user.username }}" class="main-color-2">{{ user.username }}</a></td></tr>
 			<tr><td>{{ 'E-mail address'|trans }}:</td><td>{{ user.email }}</td></tr>
 			<tr><td>{{ 'Number of classifieds'|trans }}:</td><td>{{ user.number_classifieds }}</td></tr>
 			<tr><td>{{ 'Date of registration'|trans }}:</td><td>{{ user.date|date("d-m-Y") }}</td></tr>

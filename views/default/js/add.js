@@ -135,16 +135,17 @@ angular.module("addClassified", []).controller("addClassified", function($scope,
 		$http(request).then(function(response) {
 			if(!$.isEmptyObject(response.data.options)){
 				$.each(response.data.options, function(index, value) {
-					if(list_options[index] != undefined){
+					const id = value.id;
+					if(list_options[id] != undefined){
 						if(response.data.options[index].kind=="number"){
-							response.data.options[index].value = parseInt(list_options[index][0]);
+							response.data.options[index].value = parseInt(list_options[id][0]);
 						}else if(response.data.options[index].kind=="checkbox"){
-							response.data.options[index].value = list_options[index];
+							response.data.options[index].value = list_options[id];
 						}else{
-							response.data.options[index].value = list_options[index][0];
+							response.data.options[index].value = list_options[id][0];
 						}
 					}else if($scope.list_options[index] != undefined){
-						response.data.options[index].value = $scope.list_options[index].value;
+						response.data.options[index].value = $scope.list_options[id].value;
 					}else{
 						response.data.options[index].value = "";
 					}

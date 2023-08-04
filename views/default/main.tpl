@@ -180,7 +180,7 @@
 	<!-- JS javascript -->
 	{% block javascript %}
 
-		<script src="js/jquery-3.5.1.min.js"></script>
+		<script src="js/jquery-3.7.0.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/easy-autocomplete/jquery.easy-autocomplete.min.js"></script>
     <script>

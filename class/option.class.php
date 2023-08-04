@@ -70,7 +70,11 @@ class option {
 			if($row['kind']=='select' || $row['kind']=='checkbox'){
 				$row['choices'] = static::getSelectChoices($row['select_choices']);
 			}
-			$options[$row['id']] = $row;
+			if ($controller == 'add' || $controller == 'search') {
+				$options[$row['position']] = $row;
+			} else {
+				$options[$row['id']] = $row;
+			}
 		}
 		return $options;
 	}

@@ -95,6 +95,9 @@ class payment
 			} elseif (!empty($data_payment['p24_order_id'])) {
 				$payment_id = $data_payment['p24_order_id'];
 				unset($data_payment['p24_order_id']);
+			} elseif (!empty($data_payment['paymentId'])) {
+				$payment_id = $data_payment['paymentId'];
+				unset($data_payment['paymentId']);
 			}
 			$sth = $db->prepare('UPDATE ' . _DB_PREFIX_ . 'payment SET payment_id=:payment_id, `data`=:data WHERE id=:id LIMIT 1');
 			$sth->bindValue(':payment_id', $payment_id, PDO::PARAM_STR);

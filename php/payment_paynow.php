@@ -32,8 +32,6 @@ if(isset($_POST['action']) and $_POST['action']=='new_payment' and isset($_POST[
 			$payment = new \Paynow\Service\Payment($client);
 			$result = $payment->authorize($paymentData, $idempotencyKey);
 			
-			print_r($result);
-			
 			$sth = $db->prepare('UPDATE '._DB_PREFIX_.'payment SET payment_id=:payment_id WHERE id=:id LIMIT 1');
 			$sth->bindValue(':payment_id', $result->getPaymentId(), PDO::PARAM_STR);
 			$sth->bindValue(':id', $payment_data['id'], PDO::PARAM_INT);
@@ -41,7 +39,7 @@ if(isset($_POST['action']) and $_POST['action']=='new_payment' and isset($_POST[
 	
 			header('Location: '.$result->getRedirectUrl());
 			die('redirect');
-		} catch (PaynowException $exception) {
+		} catch (\Paynow\Exception\PaynowException $exception) {
 			die('error with payment');
 		}
 	}
