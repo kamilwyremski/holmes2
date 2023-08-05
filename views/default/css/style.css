@@ -113,6 +113,9 @@ a.main-color-2:hover {
 #slider .carousel-item {
   min-height: 250px;
 }
+#slider .carousel-item img{
+  height: auto;
+}
 #slider .carousel-control-prev,
 #slider .carousel-control-next {
   width: 5%;
@@ -462,11 +465,13 @@ body.dragging * {
 #articles_index h3 {
   margin: 20px 0;
 }
-#articles_index h5 {
+#articles_index .name {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 5px 0;
+  font-size: 1.25rem;
+  margin-bottom: 0;
 }
 /* registration, log in and reset password */
 #login_box {

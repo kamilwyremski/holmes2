@@ -188,7 +188,7 @@
 							<img src="{% if article.thumb %}{{ article.thumb }}{% else %}views/{{ settings.template }}/images/no_image.png{% endif %}"
 							alt="{{ article.name }}" class="img-fluid" onerror="this.src='views/{{ settings.template }}/images/no_image.png'" loading="lazy">
 						</a>
-						<h5><a href="{{ path('article',article.id,article.slug) }}" class="main-color-2">{{ article.name }}</a></h5>
+						<p class="name"><a href="{{ path('article',article.id,article.slug) }}" class="main-color-2">{{ article.name }}</a></p>
 						<p class="text-muted small mb-3">{{ article.lid }}</p>
 					</div>
 				{% endfor %}
