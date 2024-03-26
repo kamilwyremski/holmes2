@@ -1,21 +1,21 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2023 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
  *
  * *********************************************************************
  * THIS SOFTWARE IS LICENSED - YOU CAN MODIFY THESE FILES
- * BUT YOU CAN NOT REMOVE OF ORIGINAL COMMENTS!
- * ACCORDING TO THE LICENSE YOU CAN USE THE SCRIPT ON ONE DOMAIN. DETECTION
- * COPY SCRIPT WILL RESULT IN A HIGH FINANCIAL PENALTY AND WITHDRAWAL
- * LICENSE THE SCRIPT
+ * BUT YOU CAN NOT REMOVE OF ORIGINAL COMMENTS!
+ * ACCORDING TO THE LICENSE YOU CAN USE THE SCRIPT ON ONE DOMAIN. DETECTION
+ * COPY SCRIPT WILL RESULT IN A HIGH FINANCIAL PENALTY AND WITHDRAWAL
+ * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if(!isset($settings['base_url'])){
-	die('Access denied!');
+if (!isset ($settings['base_url'])) {
+	die ('Access denied!');
 }
 
 header('HTTP/1.0 404 Not Found');
@@ -23,9 +23,9 @@ header('HTTP/1.0 404 Not Found');
 global $page;
 $page = '404';
 
-$settings['seo_title'] = 'Error 404 - '.$settings['title'];
-$settings['seo_description'] = 'Error 404 - '.$settings['description'];
+$settings['seo_title'] = 'Error 404 - ' . $settings['title'];
+$settings['seo_description'] = 'Error 404 - ' . $settings['description'];
 
-echo $twig->render($page.'.html', ['settings' => $settings, 'user' => $user]);
+echo $twig->render($page . '.html', ['settings' => $settings, 'user' => $user]);
 
 die();

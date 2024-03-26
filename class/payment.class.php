@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2023 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -23,7 +23,7 @@ class payment
 		$amount = $id = 0;
 		$description = $slug = $email = '';
 		$classified = classified::show($item_id, 'payment');
-		if (!empty($classified)) {
+		if (!empty ($classified)) {
 			$slug = $classified['slug'];
 			$email = $classified['email'];
 			if ($type == 'promote') {
@@ -56,7 +56,7 @@ class payment
 		$sth->bindValue(':id', $id, PDO::PARAM_INT);
 		$sth->execute();
 		$payment = $sth->fetch(PDO::FETCH_ASSOC);
-		if (!empty($payment)) {
+		if (!empty ($payment)) {
 			if ($payment['amount'] / 100 <= $amount) {
 				if ($payment['type'] == 'promote') {
 					$classified = classified::show($payment['item_id'], 'payment');
@@ -84,18 +84,18 @@ class payment
 			$sth->bindValue(':id', $id, PDO::PARAM_INT);
 			$sth->execute();
 		}
-		if (!empty($data_payment)) {
+		if (!empty ($data_payment)) {
 			$payment_id = '';
-			if (!empty($data_payment['operation_number'])) {
+			if (!empty ($data_payment['operation_number'])) {
 				$payment_id = $data_payment['operation_number'];
 				unset($data_payment['operation_number']);
-			} elseif (!empty($data_payment['txn_id'])) {
+			} elseif (!empty ($data_payment['txn_id'])) {
 				$payment_id = $data_payment['txn_id'];
 				unset($data_payment['txn_id']);
-			} elseif (!empty($data_payment['p24_order_id'])) {
+			} elseif (!empty ($data_payment['p24_order_id'])) {
 				$payment_id = $data_payment['p24_order_id'];
 				unset($data_payment['p24_order_id']);
-			} elseif (!empty($data_payment['paymentId'])) {
+			} elseif (!empty ($data_payment['paymentId'])) {
 				$payment_id = $data_payment['paymentId'];
 				unset($data_payment['paymentId']);
 			}

@@ -1,14 +1,15 @@
 # Holmes2
-Skrypt bazy nieruchomości Holmes2
 
-Demo skryptu: https://holmes2.itworksbetter.net/
+Holmes2 Real Estate Script
 
-Opis: https://blog.wyremski.pl/skrypt-bazy-nieruchomosci-holmes2/
+Demo: https:/holmes2.itworksbetter.net/
 
-Instrukcja: https://blog.wyremski.pl/instrukcja-instalacji-i-konfiguracji-skryptow/
+Description: https://blog.wyremski.pl/skrypt-bazy-nieruchomosci-holmes2/
 
-Po skopiowaniu plików na serwer uruchom w konsoli 
+Instructions: https://blog.wyremski.pl/instrukcja-instalacji-i-konfiguracji-skryptow/
+
+After copying the files to the server in the site directory, run the command to install the packages:
+
 ```
 composer install
 ```
-aby zainstalować niezbędne pakiety

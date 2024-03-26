@@ -1,11 +1,11 @@
 {
     "type": "project",
     "license": "proprietary",
-	"name": "kamilwyremski/holmes2",
-	"description": "Real estate website for small or big real estate agencies",
-	"version": "2.5.3",
-	"homepage": "https://holmes2.itworksbetter.net",
-	"authors": [
+    "name": "kamilwyremski/holmes2",
+    "description": "Real estate website for small or big real estate agencies",
+    "version": "2.5.4",
+    "homepage": "https://holmes2.itworksbetter.net",
+    "authors": [
         {
             "name": "Kamil Wyremski",
             "email": "kamil@wyremski.pl",
@@ -13,21 +13,28 @@
             "role": "Developer"
         }
     ],
-	"support": {
+    "support": {
         "docs": "https://blog.wyremski.pl/skrypt-bazy-nieruchomosci-holmes2/"
     },
     "require": {
-        "twig/twig": "^3.7.0",
-        "phpmailer/phpmailer": "~6.8.0",
+        "twig/twig": "^3.8.0",
+        "phpmailer/phpmailer": "~6.8.1",
         "ezyang/htmlpurifier": "~4.16.0",
-        "pay-now/paynow-php-sdk": "^2.2.1",
-        "symfony/http-client": "^5.4",
-        "nyholm/psr7": "^1.8"
+        "pay-now/paynow-php-sdk": "^2.3.1",
+        "symfony/http-client": "^5.4.37",
+        "nyholm/psr7": "^1.8.1"
     },
-	"autoload": {
-    "classmap": ["class/"],
-		"files": [
+    "autoload": {
+        "classmap": [
+            "class/"
+        ],
+        "files": [
             "php/global.php"
         ]
-	}
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
 }
