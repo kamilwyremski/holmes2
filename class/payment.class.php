@@ -116,7 +116,7 @@ class payment
 		$sth->bindValue(':limit_to', $limit, PDO::PARAM_INT);
 		$sth->execute();
 		while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-			$row['data'] = unserialize($row['data']);
+			$row['data'] = !empty($row['data']) ? unserialize($row['data']) : [];
 			$payments[] = $row;
 		}
 		generatePagination($limit);
