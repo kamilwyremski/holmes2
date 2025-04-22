@@ -145,7 +145,7 @@ angular.module("addClassified", []).controller("addClassified", function($scope,
 							response.data.options[index].value = list_options[id][0];
 						}
 					}else if($scope.list_options[index] != undefined){
-						response.data.options[index].value = $scope.list_options[id].value;
+						response.data.options[index].value = $scope.list_options[index].value;
 					}else{
 						response.data.options[index].value = "";
 					}
@@ -157,7 +157,7 @@ angular.module("addClassified", []).controller("addClassified", function($scope,
 			if(!$.isEmptyObject(response.data.categories) && (category_id>0 || $scope.list_categories.length==0)){
 				selectCategory = "";
 				if(list_categories.length){
-					selectCategory = list_categories.shift();
+					selectCategory = String(list_categories.shift());
 				}
 				required = (category_id) ? required_subcategory : required_category;
 				$scope.list_categories.push({"category_id":category_id,"categories":response.data.categories,"selectCategory":selectCategory, "required":required});

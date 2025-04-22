@@ -138,4 +138,12 @@ class newsletter
 		generatePagination($limit);
 		return $newsletter;
 	}
+
+	public static function remove(int $id)
+	{
+		global $db;
+		$sth = $db->prepare('DELETE FROM ' . _DB_PREFIX_ . 'newsletter WHERE id=:id LIMIT 1');
+		$sth->bindValue(':id', $id, PDO::PARAM_INT);
+		$sth->execute();
+	}
 }

@@ -1,6 +1,6 @@
 <?php
 /************************************************************************
- * The script of website of real estate HOLMES2 v2.5.4
+ * The script of website of real estate HOLMES2 v2.5.5
  * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
