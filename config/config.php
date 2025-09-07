@@ -9,7 +9,7 @@ define('_DEBUG_MODE_', false);
 require_once(realpath(dirname(__FILE__)).'/db.php');
 
 try{
-  $db = new PDO('mysql:host='.$mysql_server.';dbname='.$mysql_db, $mysql_user, $mysql_pass, [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]);
+  $db = new PDO('mysql:host='.$mysql_server.';dbname='.$mysql_db, $mysql_user, $mysql_pass, [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"]);
 }
 catch (PDOException $e){
   die ("Error connecting to database!");
