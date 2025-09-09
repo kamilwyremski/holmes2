@@ -413,7 +413,7 @@ class classified
 		}
 
 		$sth = $db->prepare('UPDATE ' . _DB_PREFIX_ . 'classified SET name=:name, slug=:slug, address=:address, phone=:phone, facebook_url=:facebook_url, email=:email, category_id=:category_id, state_id=:state_id, state2_id=:state2_id, type_id=:type_id, description=:description, youtube_url=:youtube_url, address_lat=:address_lat, address_long=:address_long, price=:price, price_negotiate=:price_negotiate, price_free=:price_free WHERE id=:id LIMIT 1');
-		$name = substr(trim(settings::checkWordsBlackList(strip_tags($data['name']))), 0, $settings['number_char_title']);
+		$name = mb_substr(trim(settings::checkWordsBlackList(strip_tags($data['name']))), 0, $settings['number_char_title']);
 		$slug = slug($name);
 		$sth->bindValue(':id', $id, PDO::PARAM_INT);
 		$sth->bindValue(':name', $name, PDO::PARAM_STR);
