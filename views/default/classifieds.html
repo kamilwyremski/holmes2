@@ -16,7 +16,7 @@
 				var locations = [
 					{% for classified in classifieds %}
 						{% if classified.address_lat!=0 and classified.address_long!=0 %}
-							{name:'{{ classified.name }}', lat:{{ classified.address_lat }}, long:{{ classified.address_long }}, index:{{ loop.index }}, content:'<a href="{{ path('classified',classified.id,classified.slug) }}" title="{{ classified.name }}"><p class="google_maps_p">{{ classified.name|slice(0,40) }}</p>{% if classified.thumb %}<img src="upload/photos/{{ classified.thumb }}" alt="{{ classified.name }}" onerror="this.src=\'{{ settings.base_url }}/views/{{ settings.template }}/images/no_image.png\'" class="google_maps_img">{% endif %}</a>'}{% if not loop.last %},{% endif %}
+							{name:'{{ classified.name|e('js') }}', lat:{{ classified.address_lat }}, long:{{ classified.address_long }}, index:{{ loop.index }}, content:'<a href="{{ path('classified',classified.id,classified.slug) }}" title="{{ classified.name|e('js') }}"><p class="google_maps_p">{{ classified.name|slice(0,40)|e('js') }}</p>{% if classified.thumb %}<img src="upload/photos/{{ classified.thumb }}" alt="{{ classified.name|e('js') }}" onerror="this.src=\'{{ settings.base_url }}/views/{{ settings.template }}/images/no_image.png\'" class="google_maps_img">{% endif %}</a>'}{% if not loop.last %},{% endif %}
 						{% endif %}
 					{% endfor %}
 				]
