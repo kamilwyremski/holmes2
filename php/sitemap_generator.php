@@ -14,8 +14,8 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
 function sitemap_generator()
@@ -31,20 +31,25 @@ function sitemap_generator()
 	$sitemap_links[] = ['priority' => '1', 'url' => $settings['base_url']];
 
 	foreach ($links as $link => $url) {
-		if (!(($link == 'articles' and !$settings['enable_articles']) or $link == 'article' or $link == 'my_classifieds' or $link == 'edit' or $link == 'settings' or $link == 'profile')) {
+		if (!(($link == 'articles' and !$settings['enable_articles']) or $link == 'article' or $link == 'my_classifieds' or $link == 'edit' or $link == 'settings' or $link == 'profile' or $link == 'captcha' or $link == 'clipboard' or $link == 'feed')) {
 			$sitemap_links[] = ['priority' => '0.5', 'url' => $settings['base_url'] . '/' . $url];
 		}
 	}
 
-	$sth = $db->query('SELECT * FROM ' . _DB_PREFIX_ . 'classified WHERE active=1 ORDER BY promoted desc, id desc');
+	$sth = $db->query('SELECT * FROM ' . _DB_PREFIX_ . 'classified WHERE active=1 ORDER BY promoted desc, id desc LIMIT 40000');
 	while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
 		$sitemap_links[] = ['priority' => '0.8', 'url' => path('classified', $row['id'], $row['slug'])];
+	}
+
+	$sth = $db->query('SELECT * FROM ' . _DB_PREFIX_ . 'category');
+	while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
+		$sitemap_links[] = ['priority' => '0.6', 'url' => path('home') . '/' . _PREFIX_CATEGORY_ . $row['path']];
 	}
 
 	if ($settings['enable_articles']) {
 		$sth = $db->query('SELECT * FROM ' . _DB_PREFIX_ . 'article ORDER BY date desc');
 		while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-			$sitemap_links[] = ['priority' => '0.6', 'url' => path('article', $row['id'], $row['slug'])];
+			$sitemap_links[] = ['priority' => '0.7', 'url' => path('article', $row['id'], $row['slug'])];
 		}
 	}
 
