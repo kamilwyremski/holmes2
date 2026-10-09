@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,25 +14,25 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
 if ($admin->is_logged()) {
 
-	if (!_ADMIN_TEST_MODE_ and isset ($_POST['action'])) {
-		if ($_POST['action'] == 'add_info' and !empty ($_POST['name']) and checkToken('admin_add_info')) {
+	if (!_ADMIN_TEST_MODE_ and isset($_POST['action'])) {
+		if ($_POST['action'] == 'add_info' and !empty($_POST['name']) and checkToken('admin_add_info')) {
 			info::add($_POST);
 			header('Location: ?controller=info');
-			die ('redirect');
-		} elseif ($_POST['action'] == 'edit_info' and isset ($_POST['id']) and $_POST['id'] > 0 and !empty ($_POST['name']) and checkToken('admin_edit_info')) {
+			die('redirect');
+		} elseif ($_POST['action'] == 'edit_info' and isset($_POST['id']) and $_POST['id'] > 0 and !empty($_POST['name']) and checkToken('admin_edit_info')) {
 			info::edit($_POST['id'], $_POST);
 			header('Location: ?controller=info');
-			die ('redirect');
+			die('redirect');
 		}
 	}
 
-	if (isset ($_GET['id']) and $_GET['id'] > 0) {
+	if (isset($_GET['id']) and $_GET['id'] > 0) {
 		$info_page = info::show($_GET['id']);
 		if ($info_page != '') {
 			$title = $info_page['name'] . ' - ' . trans('Info');

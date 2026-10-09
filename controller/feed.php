@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -15,10 +15,10 @@
  * *********************************************************************/
 
 if (!$settings['rss']) {
-	die (trans('RSS feed was switched off'));
+	die(trans('RSS feed was switched off'));
 }
 
-if (!empty ($_GET['slug'])) {
+if (!empty($_GET['slug'])) {
 	throw new noFoundException();
 }
 
@@ -42,7 +42,7 @@ $rssfeed .= '<description>' . $settings['description'] . '</description>';
 $rssfeed .= '<language>' . $settings['lang'] . '</language>';
 $rssfeed .= '<lastBuildDate>' . date("D, d M Y H:i:s O") . '</lastBuildDate>';
 $rssfeed .= '<atom:link href="' . $settings['base_url'] . '/php/rss.php" rel="self" type="application/rss+xml" />';
-if (!empty ($classifieds)) {
+if (!empty($classifieds)) {
 	foreach ($classifieds as $key => $value) {
 		$rssfeed .= '<item>';
 		$rssfeed .= '<title>' . str_replace('&', '&amp;', $value['name']) . '</title>';

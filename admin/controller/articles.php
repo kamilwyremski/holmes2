@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,14 +14,14 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
 if ($admin->is_logged()) {
 
-	if (!_ADMIN_TEST_MODE_ and isset ($_POST['action'])) {
-		if ($_POST['action'] == 'remove_article' and isset ($_POST['id']) and $_POST['id'] > 0 and checkToken('admin_remove_article')) {
+	if (!_ADMIN_TEST_MODE_ and isset($_POST['action'])) {
+		if ($_POST['action'] == 'remove_article' and isset($_POST['id']) and $_POST['id'] > 0 and checkToken('admin_remove_article')) {
 			article::remove($_POST['id']);
 			$render_variables['alert_danger'][] = trans('Successfully deleted');
 		}

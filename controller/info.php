@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,17 +14,17 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
-if (isset ($_GET['id']) and $_GET['id'] > 0 and !empty ($_GET['slug'])) {
+if (isset($_GET['id']) and $_GET['id'] > 0 and !empty($_GET['slug'])) {
 
 	$info_page = info::show($_GET['id']);
 	if ($info_page != '') {
 		if ($_GET['slug'] != $info_page['slug']) {
 			header("Location: " . path('info', $info_page['id'], $info_page['slug']));
-			die ('redirect');
+			die('redirect');
 		} else {
 			$render_variables['info_page'] = $info_page;
 			$settings['seo_title'] = $info_page['name'] . ' - ' . $settings['title'];
@@ -42,7 +42,7 @@ if (isset ($_GET['id']) and $_GET['id'] > 0 and !empty ($_GET['slug'])) {
 	}
 } else {
 
-	if (!empty ($_GET['slug'])) {
+	if (!empty($_GET['slug'])) {
 		throw new noFoundException();
 	}
 

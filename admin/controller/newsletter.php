@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,33 +14,33 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
 if ($admin->is_logged()) {
 
-	if (!_ADMIN_TEST_MODE_ and isset ($_POST['action'])) {
-		if ($_POST['action'] == 'activate_newsletter' and isset ($_POST['id']) and $_POST['id'] > 0 and checkToken('activate_newsletter')) {
+	if (!_ADMIN_TEST_MODE_ and isset($_POST['action'])) {
+		if ($_POST['action'] == 'activate_newsletter' and isset($_POST['id']) and $_POST['id'] > 0 and checkToken('activate_newsletter')) {
 			newsletter::activate($_POST['id']);
 			$render_variables['alert_success'][] = trans('Email address has been activated');
-		} elseif ($_POST['action'] == 'remove_newsletter' and isset ($_POST['id']) and $_POST['id'] > 0 and checkToken('remove_newsletter')) {
+		} elseif ($_POST['action'] == 'remove_newsletter' and isset($_POST['id']) and $_POST['id'] > 0 and checkToken('remove_newsletter')) {
 			newsletter::remove($_POST['id']);
-			if (isset ($_POST['add_email_black_list']) and !empty ($_POST['email'])) {
+			if (isset($_POST['add_email_black_list']) and !empty($_POST['email'])) {
 				settings::addEmailToBlackList($_POST['email']);
 			}
-			if (isset ($_POST['add_ip_black_list']) and !empty ($_POST['ip'])) {
+			if (isset($_POST['add_ip_black_list']) and !empty($_POST['ip'])) {
 				settings::addIpToBlackList($_POST['ip']);
 			}
 			$render_variables['alert_danger'][] = trans('User has been deleted');
-		} elseif ($_POST['action'] == 'remove_newsletters' and isset ($_POST['newsletters']) and is_array($_POST['newsletters']) and checkToken('admin_action_newsletter')) {
+		} elseif ($_POST['action'] == 'remove_newsletters' and isset($_POST['newsletters']) and is_array($_POST['newsletters']) and checkToken('admin_action_newsletter')) {
 			foreach ($_POST['newsletters'] as $key => $value) {
 				if ($value > 0) {
 					newsletter::remove($value);
 				}
 			}
 			$render_variables['alert_danger'][] = trans('User has been deleted');
-		} elseif ($_POST['action'] == 'activate_newsletters' and isset ($_POST['newsletters']) and is_array($_POST['newsletters']) and checkToken('admin_action_newsletter')) {
+		} elseif ($_POST['action'] == 'activate_newsletters' and isset($_POST['newsletters']) and is_array($_POST['newsletters']) and checkToken('admin_action_newsletter')) {
 			foreach ($_POST['newsletters'] as $key => $value) {
 				if ($value > 0) {
 					newsletter::activate($value);

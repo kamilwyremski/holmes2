@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,17 +14,17 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
-if ($settings['enable_articles'] and isset ($_GET['id']) and $_GET['id'] > 0 and !empty ($_GET['slug'])) {
+if ($settings['enable_articles'] and isset($_GET['id']) and $_GET['id'] > 0 and !empty($_GET['slug'])) {
 
 	$article = article::show($_GET['id']);
 	if ($article) {
 		if ($_GET['slug'] != $article['slug']) {
 			header("Location: " . path('article', $article['id'], $article['slug']));
-			die ('redirect');
+			die('redirect');
 		} else {
 			$render_variables['article'] = $article;
 			$settings['seo_title'] = $article['name'] . ' - ' . $settings['title'];

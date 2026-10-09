@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,17 +14,17 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
-if (!empty ($_GET['slug'])) {
+if (!empty($_GET['slug'])) {
 	throw new noFoundException();
 }
 
 if ($user->getId()) {
 
-	if (isset ($_POST['action']) and $_POST['action'] == 'clipboard_remove' and isset ($_POST['id']) and $_POST['id'] > 0 and checkToken('clipboard_remove')) {
+	if (isset($_POST['action']) and $_POST['action'] == 'clipboard_remove' and isset($_POST['id']) and $_POST['id'] > 0 and checkToken('clipboard_remove')) {
 		clipboard::remove($_POST['id']);
 	}
 
@@ -35,5 +35,5 @@ if ($user->getId()) {
 
 } else {
 	header("Location: " . path('login') . "?redirect=" . path('clipboard'));
-	die ('redirect');
+	die('redirect');
 }

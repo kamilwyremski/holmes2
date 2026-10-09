@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,26 +14,26 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
-if (!empty ($_GET['slug'])) {
+if (!empty($_GET['slug'])) {
 	throw new noFoundException();
 }
 
 if ($user->logged_in) {
 
-	if (isset ($_POST['action'])) {
-		if ($_POST['action'] == 'finish_classified' and isset ($_POST['id']) and $_POST['id'] >= 0 and checkToken('finish_classified')) {
+	if (isset($_POST['action'])) {
+		if ($_POST['action'] == 'finish_classified' and isset($_POST['id']) and $_POST['id'] >= 0 and checkToken('finish_classified')) {
 			if (classified::checkPermissions($_POST['id'])) {
 				classified::deactivate($_POST['id']);
 			}
-		} elseif ($_POST['action'] == 'remove_classified' and isset ($_POST['id']) and $_POST['id'] > 0 and checkToken('remove_classified')) {
+		} elseif ($_POST['action'] == 'remove_classified' and isset($_POST['id']) and $_POST['id'] > 0 and checkToken('remove_classified')) {
 			if (classified::checkPermissions($_POST['id'])) {
 				classified::remove($_POST['id']);
 			}
-		} elseif ($_POST['action'] == 'refresh_classified' and isset ($_POST['id']) and $_POST['id'] >= 0 and $settings['allow_refresh_classifieds'] and checkToken('refresh_classified')) {
+		} elseif ($_POST['action'] == 'refresh_classified' and isset($_POST['id']) and $_POST['id'] >= 0 and $settings['allow_refresh_classifieds'] and checkToken('refresh_classified')) {
 			if (classified::checkPermissions($_POST['id']) and classified::countCost($_POST['id'])['total'] == 0) {
 				classified::refresh($_POST['id']);
 			}
@@ -47,5 +47,5 @@ if ($user->logged_in) {
 
 } else {
 	header("Location: " . path('login') . "?redirect=" . path('my_classifieds'));
-	die ('redirect');
+	die('redirect');
 }

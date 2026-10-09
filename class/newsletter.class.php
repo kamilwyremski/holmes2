@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -24,7 +24,7 @@ class newsletter
 		$newsletter_input = [];
 		$newsletter_info = '';
 
-		if (isset ($_POST['action']) and $_POST['action'] == 'newsletter_add' and !empty ($_POST['email']) and isset ($_POST['rules']) and checkToken('newsletter_add')) {
+		if (isset($_POST['action']) and $_POST['action'] == 'newsletter_add' and !empty($_POST['email']) and isset($_POST['rules']) and checkToken('newsletter_add')) {
 
 			if (!settings::checkCaptcha($_POST)) {
 				$newsletter_error = trans('Invalid captcha code. Show that you are not robot!');
@@ -47,13 +47,13 @@ class newsletter
 			}
 		}
 
-		if (!empty ($_GET['newsletter_activation_code'])) {
+		if (!empty($_GET['newsletter_activation_code'])) {
 			if (static::checkCode($_GET['newsletter_activation_code'])) {
 				$newsletter_info = trans('The email address has been successfully confirmed');
 			} else {
 				$newsletter_error = trans('Incorrect activation code or email has already been confirmed');
 			}
-		} elseif (!empty ($_GET['newsletter_cancel'])) {
+		} elseif (!empty($_GET['newsletter_cancel'])) {
 			if (static::checkCancel($_GET['newsletter_cancel'])) {
 				$newsletter_info = trans('The email address was successfully deleted');
 			} else {

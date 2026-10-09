@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,56 +14,56 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
 if ($admin->is_logged()) {
 
-	if (!_ADMIN_TEST_MODE_ and isset ($_POST['action'])) {
-		if ($_POST['action'] == 'activate_user' and isset ($_POST['id']) and $_POST['id'] > 0 and checkToken('activate_user')) {
+	if (!_ADMIN_TEST_MODE_ and isset($_POST['action'])) {
+		if ($_POST['action'] == 'activate_user' and isset($_POST['id']) and $_POST['id'] > 0 and checkToken('activate_user')) {
 			user::activate($_POST['id']);
 			$render_variables['alert_success'][] = trans('Account has been activated, you can now log in');
-		} elseif ($_POST['action'] == 'set_moderator' and isset ($_POST['id']) and $_POST['id'] > 0 and checkToken('set_moderator')) {
+		} elseif ($_POST['action'] == 'set_moderator' and isset($_POST['id']) and $_POST['id'] > 0 and checkToken('set_moderator')) {
 			user::setModerator($_POST['id']);
 			$render_variables['alert_success'][] = trans('Moderator rights have been successfully granted');
-		} elseif ($_POST['action'] == 'unset_moderator' and isset ($_POST['id']) and $_POST['id'] > 0 and checkToken('unset_moderator')) {
+		} elseif ($_POST['action'] == 'unset_moderator' and isset($_POST['id']) and $_POST['id'] > 0 and checkToken('unset_moderator')) {
 			user::unSetModerator($_POST['id']);
 			$render_variables['alert_success'][] = trans('Moderator rights have been successfully removed');
-		} elseif ($_POST['action'] == 'remove_user' and isset ($_POST['id']) and $_POST['id'] > 0 and checkToken('admin_remove_user')) {
+		} elseif ($_POST['action'] == 'remove_user' and isset($_POST['id']) and $_POST['id'] > 0 and checkToken('admin_remove_user')) {
 			user::remove($_POST['id']);
-			if (isset ($_POST['add_email_black_list']) and !empty ($_POST['email'])) {
+			if (isset($_POST['add_email_black_list']) and !empty($_POST['email'])) {
 				settings::addEmailToBlackList($_POST['email']);
 			}
-			if (isset ($_POST['add_ip_black_list']) and !empty ($_POST['register_ip'])) {
+			if (isset($_POST['add_ip_black_list']) and !empty($_POST['register_ip'])) {
 				settings::addIpToBlackList($_POST['register_ip']);
 			}
-			if (isset ($_POST['add_ip_black_list']) and !empty ($_POST['activation_ip'])) {
+			if (isset($_POST['add_ip_black_list']) and !empty($_POST['activation_ip'])) {
 				settings::addIpToBlackList($_POST['activation_ip']);
 			}
 			$render_variables['alert_danger'][] = trans('User has been deleted');
-		} elseif ($_POST['action'] == 'remove_users' and isset ($_POST['users']) and is_array($_POST['users']) and checkToken('admin_action_users')) {
+		} elseif ($_POST['action'] == 'remove_users' and isset($_POST['users']) and is_array($_POST['users']) and checkToken('admin_action_users')) {
 			foreach ($_POST['users'] as $key => $value) {
 				if ($value > 0) {
 					user::remove($value);
 				}
 			}
 			$render_variables['alert_danger'][] = trans('User has been deleted');
-		} elseif ($_POST['action'] == 'activate_users' and isset ($_POST['users']) and is_array($_POST['users']) and checkToken('admin_action_users')) {
+		} elseif ($_POST['action'] == 'activate_users' and isset($_POST['users']) and is_array($_POST['users']) and checkToken('admin_action_users')) {
 			foreach ($_POST['users'] as $key => $value) {
 				if ($value > 0) {
 					user::activate($value);
 				}
 			}
 			$render_variables['alert_success'][] = trans('Changes have been saved');
-		} elseif ($_POST['action'] == 'set_moderators' and isset ($_POST['users']) and is_array($_POST['users']) and checkToken('admin_action_users')) {
+		} elseif ($_POST['action'] == 'set_moderators' and isset($_POST['users']) and is_array($_POST['users']) and checkToken('admin_action_users')) {
 			foreach ($_POST['users'] as $key => $value) {
 				if ($value > 0) {
 					user::setModerator($value);
 				}
 			}
 			$render_variables['alert_success'][] = trans('Changes have been saved');
-		} elseif ($_POST['action'] == 'unset_moderators' and isset ($_POST['users']) and is_array($_POST['users']) and checkToken('admin_action_users')) {
+		} elseif ($_POST['action'] == 'unset_moderators' and isset($_POST['users']) and is_array($_POST['users']) and checkToken('admin_action_users')) {
 			foreach ($_POST['users'] as $key => $value) {
 				if ($value > 0) {
 					user::unSetModerator($value);

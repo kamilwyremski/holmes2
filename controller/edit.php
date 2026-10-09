@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,25 +14,25 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
-require_once ('controller/add.php');
+require_once('controller/add.php');
 $controller = 'add';
 
-if (!empty ($_GET['code'])) {
+if (!empty($_GET['code'])) {
 	$code = $_GET['code'];
 } else {
 	$code = '';
 }
 
-if (isset ($_GET['id']) and $_GET['id'] > 0 and classified::checkPermissions($_GET['id'], $code)) {
+if (isset($_GET['id']) and $_GET['id'] > 0 and classified::checkPermissions($_GET['id'], $code)) {
 
 	$classified = classified::show($_GET['id'], 'edit');
 	if ($_GET['slug'] != $classified['slug']) {
 		header("Location: " . path('edit', $classified['id'], $classified['slug']));
-		die ('redirect');
+		die('redirect');
 	}
 	$render_variables['classified'] = $classified;
 	$settings['seo_title'] = trans('Edit classified') . ' - ' . $settings['title'];

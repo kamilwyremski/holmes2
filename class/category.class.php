@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -236,7 +236,7 @@ class category
 		$category = static::show($id, true);
 
 		$over_categories = [];
-		if (!empty ($category['breadcrumbs'])) {
+		if (!empty($category['breadcrumbs'])) {
 			foreach ($category['breadcrumbs'] as $value) {
 				$over_categories[] = $value['category_id'];
 			}

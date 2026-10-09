@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,14 +14,14 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
 if ($admin->is_logged()) {
 
-	if (!_ADMIN_TEST_MODE_ and isset ($_POST['action'])) {
-		if ($_POST['action'] == 'send_mailing' and !empty ($_POST['type']) and !empty ($_POST['subject']) and isset ($_POST['message']) and checkToken('admin_send_mailing')) {
+	if (!_ADMIN_TEST_MODE_ and isset($_POST['action'])) {
+		if ($_POST['action'] == 'send_mailing' and !empty($_POST['type']) and !empty($_POST['subject']) and isset($_POST['message']) and checkToken('admin_send_mailing')) {
 			mail::prepareMailing($_POST);
 		} elseif ($_POST['action'] == 'cancel_mailing' and checkToken('admin_cancel_mailing')) {
 			mailQueue::cancelMailing();

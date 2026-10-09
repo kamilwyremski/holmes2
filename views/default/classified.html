@@ -114,7 +114,7 @@
 					<br>
 				{% endif %}
 			{% endif %}
-			{% if user.id==classified.user_id or user.moderator %}
+			{% if user.id and (user.id==classified.user_id or user.moderator) %}
 				<h6><a href="{{ path('edit',classified.id,classified.slug) }}" title="{{ 'Edit classified'|trans }}: {{ classified.name }}" class="text-primary">{{ 'Edit classified'|trans }}</a> |
 				<a href="{{ path('add') }}/?add_similar={{ classified.id }}" title="{{ 'Add similar'|trans }}: {{ classified.name }}" class="text-success">{{ 'Add similar'|trans }}</a></h6><br>
 			{% endif %}

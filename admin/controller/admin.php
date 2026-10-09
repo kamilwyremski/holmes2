@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,15 +14,15 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
 if ($admin->is_logged()) {
 
-	if (isset ($_POST['action']) and !_ADMIN_TEST_MODE_) {
+	if (isset($_POST['action']) and !_ADMIN_TEST_MODE_) {
 
-		if ($_POST['action'] == 'admin_change_user' and !empty ($_POST['new_username']) and !empty ($_POST['new_password']) and !empty ($_POST['repeat_new_password']) and checkToken('admin_change_user')) {
+		if ($_POST['action'] == 'admin_change_user' and !empty($_POST['new_username']) and !empty($_POST['new_password']) and !empty($_POST['repeat_new_password']) and checkToken('admin_change_user')) {
 
 			try {
 				$admin->changeUser($_POST);
@@ -36,7 +36,7 @@ if ($admin->is_logged()) {
 			$admin->removeLogs();
 			$render_variables['alert_success'][] = trans('Logs logon to the Admin Panel has been successfully removed');
 
-		} elseif ($_POST['action'] == 'admin_add_user' and !empty ($_POST['username']) and !empty ($_POST['password']) and !empty ($_POST['repeat_password']) and checkToken('admin_add_user')) {
+		} elseif ($_POST['action'] == 'admin_add_user' and !empty($_POST['username']) and !empty($_POST['password']) and !empty($_POST['repeat_password']) and checkToken('admin_add_user')) {
 
 			try {
 				$admin->addUser($_POST);
@@ -45,7 +45,7 @@ if ($admin->is_logged()) {
 				$render_variables['alert_danger'][] = $e->getMessage();
 			}
 
-		} elseif ($_POST['action'] == 'admin_remove_user' and isset ($_POST['id']) and $_POST['id'] > 0 and checkToken('admin_remove_user')) {
+		} elseif ($_POST['action'] == 'admin_remove_user' and isset($_POST['id']) and $_POST['id'] > 0 and checkToken('admin_remove_user')) {
 
 			try {
 				$admin->removeUser($_POST['id']);

@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -25,36 +25,36 @@ class classified
 		$select = '';
 		$join = '';
 		$bind_values = [];
-		if (isset ($data['category']) and $data['category'] > 0) {
+		if (isset($data['category']) and $data['category'] > 0) {
 			$where_statement .= ' AND (c.category_id=:category OR c.category_id = any(SELECT subcategory_id FROM ' . _DB_PREFIX_ . 'subcategory WHERE category_id=:category)) ';
 			$bind_values['category'] = $data['category'];
 		}
-		if (!empty ($data['type'])) {
+		if (!empty($data['type'])) {
 			$where_statement .= ' AND c.type_id = (SELECT id FROM ' . _DB_PREFIX_ . 'type WHERE slug=:type LIMIT 1) ';
 			$bind_values['type'] = $data['type'];
 		}
-		if (!empty ($data['state'])) {
+		if (!empty($data['state'])) {
 			$where_statement .= ' AND c.state_id = (SELECT id FROM ' . _DB_PREFIX_ . 'state WHERE slug=:state LIMIT 1) ';
 			$bind_values['state'] = $data['state'];
-			if (!empty ($data['state2'])) {
+			if (!empty($data['state2'])) {
 				$where_statement .= ' AND c.state2_id = (SELECT id FROM ' . _DB_PREFIX_ . 'state WHERE slug=:state2 LIMIT 1) ';
 				$bind_values['state2'] = $data['state2'];
 			}
 		}
-		if (isset ($data['search'])) {
-			if (isset ($data['id']) and $data['id'] > 0) {
+		if (isset($data['search'])) {
+			if (isset($data['id']) and $data['id'] > 0) {
 				$where_statement .= ' AND c.id = :id ';
 				$bind_values['id'] = $data['id'];
 			}
-			if (isset ($data['not_id']) and $data['not_id'] > 0) {
+			if (isset($data['not_id']) and $data['not_id'] > 0) {
 				$where_statement .= ' AND c.id != :not_id ';
 				$bind_values['not_id'] = $data['not_id'];
 			}
-			if (!empty ($data['username'])) {
+			if (!empty($data['username'])) {
 				$where_statement .= ' AND c.user_id = (SELECT id FROM ' . _DB_PREFIX_ . 'user WHERE username=:username LIMIT 1) ';
 				$bind_values['username'] = $data['username'];
 			}
-			if (!empty ($data['name'])) {
+			if (!empty($data['name'])) {
 				$names = explode(' ', $data['name']);
 				$where_statement .= ' AND ( ';
 				for ($i = 0; $i < count($names); $i++) {
@@ -66,8 +66,8 @@ class classified
 				}
 				$where_statement .= ' ) ';
 			}
-			if (!empty ($data['keywords'])) {
-				if (isset ($data['exact_phrase'])) {
+			if (!empty($data['keywords'])) {
+				if (isset($data['exact_phrase'])) {
 					$where_statement .= ' AND (c.slug LIKE :keywords_slug OR c.description LIKE :keywords) ';
 					$bind_values['keywords_slug'] = '%' . slug($data['keywords']) . '%';
 					$bind_values['keywords'] = '%' . $data['keywords'] . '%';
@@ -77,26 +77,26 @@ class classified
 					$having_statement .= ' AND score>0 ';
 				}
 			}
-			if (isset ($data['user_id']) and $data['user_id'] > 0) {
+			if (isset($data['user_id']) and $data['user_id'] > 0) {
 				$where_statement .= ' AND c.user_id=:user_id ';
 				$bind_values['user_id'] = $data['user_id'];
 			}
-			if (isset ($data['active'])) {
+			if (isset($data['active'])) {
 				if ($data['active'] == 'yes') {
 					$where_statement .= ' AND c.active="1" ';
 				} elseif ($data['active'] == 'no') {
 					$where_statement .= ' AND c.active="0" ';
 				}
 			}
-			if (isset ($data['promoted'])) {
+			if (isset($data['promoted'])) {
 				if ($data['promoted'] == 'yes') {
 					$where_statement .= ' AND c.promoted="1" ';
 				} elseif ($data['promoted'] == 'no') {
 					$where_statement .= ' AND c.promoted="0" ';
 				}
 			}
-			if (!empty ($data['address'])) {
-				if (isset ($data['distance']) and $data['distance'] > 0) {
+			if (!empty($data['address'])) {
+				if (isset($data['distance']) and $data['distance'] > 0) {
 					$coordinates = getCoordinates($data['address']);
 					$select .= ' , (6371 * acos( cos( radians(' . $coordinates['lat'] . ')) * cos( radians(c.address_lat) ) * cos( radians(c.address_long) - radians(' . $coordinates['long'] . ')) + sin(radians(' . $coordinates['lat'] . ')) * sin(radians(c.address_lat)))) AS distance ';
 					$where_statement .= ' AND c.address_lat!=0 AND c.address_long!=0 ';
@@ -107,15 +107,15 @@ class classified
 					$bind_values['address'] = '%' . $data['address'] . '%';
 				}
 			}
-			if (isset ($data['price_from']) and $data['price_from'] > 0) {
+			if (isset($data['price_from']) and $data['price_from'] > 0) {
 				$where_statement .= ' AND c.price>=:price_from ';
 				$bind_values['price_from'] = $data['price_from'] * 100;
 			}
-			if (isset ($data['price_to']) and $data['price_to'] > 0) {
+			if (isset($data['price_to']) and $data['price_to'] > 0) {
 				$where_statement .= ' AND c.price<=:price_to ';
 				$bind_values['price_to'] = $data['price_to'] * 100;
 			}
-			if (isset ($data['options']) and is_array($data['options'])) {
+			if (isset($data['options']) and is_array($data['options'])) {
 				$options = array_filter($data['options']);
 				foreach ($options as $key => $value) {
 					if (is_array($value)) {
@@ -123,23 +123,23 @@ class classified
 					}
 				}
 				$options = array_filter($options);
-				if (!empty ($options)) {
+				if (!empty($options)) {
 					$where_statement .= ' AND (';
 					$last = count($options);
 					$i = 0;
 					foreach ($options as $key => $value) {
 						if (is_array($value)) {
 							$where_statement .= ' ( ';
-							if (isset ($value['from']) || isset ($value['to'])) {
-								if (isset ($value['from']) and $value['from'] >= 0) {
+							if (isset($value['from']) || isset($value['to'])) {
+								if (isset($value['from']) and $value['from'] >= 0) {
 									$where_statement .= ' (SELECT count(1) FROM ' . _DB_PREFIX_ . 'option_value ov, `' . _DB_PREFIX_ . 'option` op WHERE op.id=ov.option_id AND ov.option_id=:option_id_' . $i . '_key AND ov.classified_id=c.id AND CAST(ov.value AS UNSIGNED) >=:option_id_' . $i . '_from LIMIT 1) > 0 ';
 									$bind_values['option_id_' . $i . '_key'] = $key;
 									$bind_values['option_id_' . $i . '_from'] = $value['from'];
 								}
-								if (isset ($value['from']) and $value['from'] >= 0 and isset ($value['to']) and $value['to'] >= 0) {
+								if (isset($value['from']) and $value['from'] >= 0 and isset($value['to']) and $value['to'] >= 0) {
 									$where_statement .= ' AND ';
 								}
-								if (isset ($value['to']) and $value['to'] >= 0) {
+								if (isset($value['to']) and $value['to'] >= 0) {
 									$where_statement .= ' (SELECT count(1) FROM ' . _DB_PREFIX_ . 'option_value ov, `' . _DB_PREFIX_ . 'option` op WHERE op.id=ov.option_id AND ov.option_id=:option_id_' . $i . '_key AND ov.classified_id=c.id AND CAST(ov.value AS UNSIGNED) <=:option_id_' . $i . '_to LIMIT 1) > 0 ';
 									$bind_values['option_id_' . $i . '_key'] = $key;
 									$bind_values['option_id_' . $i . '_to'] = $value['to'];
@@ -171,33 +171,33 @@ class classified
 					$where_statement .= ') ';
 				}
 			}
-			if (!empty ($data['date_from'])) {
+			if (!empty($data['date_from'])) {
 				$where_statement .= ' AND c.date >= :date_from ';
 				$bind_values['date_from'] = $data['date_from'];
 			}
-			if (!empty ($data['date_to'])) {
+			if (!empty($data['date_to'])) {
 				$where_statement .= ' AND c.date <= :date_to ';
 				$bind_values['date_to'] = $data['date_to'] . ' 23:59:59 ';
 			}
-			if (!empty ($data['date_finish_from'])) {
+			if (!empty($data['date_finish_from'])) {
 				$where_statement .= ' AND c.date_finish >= :date_finish_from ';
 				$bind_values['date_finish_from'] = $data['date_finish_from'];
 			}
-			if (!empty ($data['date_finish_to'])) {
+			if (!empty($data['date_finish_to'])) {
 				$where_statement .= ' AND c.date_finish <= :date_finish_to';
 				$bind_values['date_finish_to'] = $data['date_finish_to'];
 			}
-			if (!empty ($data['ip'])) {
+			if (!empty($data['ip'])) {
 				$where_statement .= ' AND c.ip like :ip ';
 				$bind_values['ip'] = '%' . $data['ip'] . '%';
 			}
-			if (isset ($data['classifieds_with_photos'])) {
+			if (isset($data['classifieds_with_photos'])) {
 				$having_statement .= ' AND thumb!="" ';
 			}
 		}
 
 		$sort = ' c.date_start DESC ';
-		if (!empty ($data['sort'])) {
+		if (!empty($data['sort'])) {
 			if ($data['sort'] == 'random') {
 				$sort = ' rand() ';
 			} elseif ($data['sort'] == 'newest') {
@@ -300,10 +300,10 @@ class classified
 	{
 		global $db, $user, $settings;
 		$code = bin2hex(random_bytes(32));
-		if (empty ($data['category_id'])) {
+		if (empty($data['category_id'])) {
 			$data['category_id'] = 0;
 		}
-		if (empty ($data['duration_id'])) {
+		if (empty($data['duration_id'])) {
 			$data['duration_id'] = 0;
 		}
 
@@ -370,42 +370,42 @@ class classified
 			$old_price = static::countCost($id)['total'];
 		}
 
-		if (!empty ($data['address'])) {
+		if (!empty($data['address'])) {
 			$data['address'] = trim(strip_tags($data['address']));
 		} else {
 			$data['address'] = '';
 		}
-		if (empty ($data['category_id'])) {
+		if (empty($data['category_id'])) {
 			$data['category_id'] = 0;
 		}
-		if (empty ($data['state_id'])) {
+		if (empty($data['state_id'])) {
 			$data['state_id'] = 0;
 		}
-		if (empty ($data['state2_id'])) {
+		if (empty($data['state2_id'])) {
 			$data['state2_id'] = 0;
 		}
-		if (empty ($data['type_id'])) {
+		if (empty($data['type_id'])) {
 			$data['type_id'] = 0;
 		}
-		if (!empty ($data['address_lat'])) {
+		if (!empty($data['address_lat'])) {
 			$data['address_lat'] = strval($data['address_lat']);
 		} else {
 			$data['address_lat'] = 0;
 		}
-		if (!empty ($data['address_long'])) {
+		if (!empty($data['address_long'])) {
 			$data['address_long'] = strval($data['address_long']);
 		} else {
 			$data['address_long'] = 0;
 		}
-		if (isset ($data['price_free'])) {
+		if (isset($data['price_free'])) {
 			$data['price'] = $price_negotiate = 0;
 		} else {
-			if (isset ($data['price']) and $data['price'] > 0) {
+			if (isset($data['price']) and $data['price'] > 0) {
 				$data['price'] = $data['price'] * 100;
 			} else {
 				$data['price'] = 0;
 			}
-			$price_negotiate = isset ($data['price_negotiate']);
+			$price_negotiate = isset($data['price_negotiate']);
 		}
 
 		if ($user->logged_in and !$user->moderator) {
@@ -432,10 +432,10 @@ class classified
 		$sth->bindValue(':address_long', $data['address_long'], PDO::PARAM_STR);
 		$sth->bindValue(':price', $data['price'], PDO::PARAM_INT);
 		$sth->bindValue(':price_negotiate', $price_negotiate, PDO::PARAM_INT);
-		$sth->bindValue(':price_free', isset ($data['price_free']), PDO::PARAM_INT);
+		$sth->bindValue(':price_free', isset($data['price_free']), PDO::PARAM_INT);
 		$sth->execute();
 
-		if (!empty ($data['duration_id'])) {
+		if (!empty($data['duration_id'])) {
 			$sth = $db->prepare('UPDATE ' . _DB_PREFIX_ . 'classified SET duration_id=:duration_id, date_finish=(NOW() + INTERVAL :days_to_finish DAY) WHERE id=:id LIMIT 1');
 			$sth->bindValue(':id', $id, PDO::PARAM_INT);
 			$sth->bindValue(':duration_id', $data['duration_id'], PDO::PARAM_INT);
@@ -450,9 +450,9 @@ class classified
 			}
 		}
 
-		photo::addToClassified($id, isset ($data['photos']) ? $data['photos'] : []);
+		photo::addToClassified($id, isset($data['photos']) ? $data['photos'] : []);
 
-		option::addToClassified($id, isset ($data['options']) ? $data['options'] : []);
+		option::addToClassified($id, isset($data['options']) ? $data['options'] : []);
 
 		return ['id' => $id, 'slug' => $slug];
 	}
@@ -486,7 +486,7 @@ class classified
 
 				$category = category::show($classified['category_id'], true);
 				$classified['categories'] = [];
-				if (!empty ($category['breadcrumbs'])) {
+				if (!empty($category['breadcrumbs'])) {
 					foreach ($category['breadcrumbs'] as $breadcrumb) {
 						$classified['categories'][] = $breadcrumb['id'];
 					}
@@ -591,7 +591,7 @@ class classified
 			$sth = $db->prepare('SELECT 1 FROM ' . _DB_PREFIX_ . 'classified WHERE id=:id AND user_id=:user_id LIMIT 1');
 			$sth->bindValue(':user_id', $user->getId(), PDO::PARAM_INT);
 		} else {
-			if (empty ($code)) {
+			if (empty($code)) {
 				return false;
 			} else {
 				$sth = $db->prepare('SELECT 1 FROM ' . _DB_PREFIX_ . 'classified WHERE id=:id AND code=:code LIMIT 1');

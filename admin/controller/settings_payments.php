@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,13 +14,13 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
 if ($admin->is_logged()) {
 
-	if (!_ADMIN_TEST_MODE_ and isset ($_POST['action']) and $_POST['action'] == 'save_settings_payments' and checkToken('admin_save_settings_payments')) {
+	if (!_ADMIN_TEST_MODE_ and isset($_POST['action']) and $_POST['action'] == 'save_settings_payments' and checkToken('admin_save_settings_payments')) {
 
 		settings::saveArrays(
 			['currency', 'add_cost', 'promote_days', 'promote_cost', 'dotpay_id', 'dotpay_pin', 'dotpay_currency', 'paypal_email', 'paypal_lc', 'paypal_currency', 'p24_merchant_id', 'p24_pos_id', 'p24_crc', 'p24_currency', 'paynow_apikey', 'paynow_signaturekey', 'paynow_currency'],

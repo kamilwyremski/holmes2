@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -24,7 +24,7 @@ class settings
 		$sth = $db->prepare('UPDATE `' . _DB_PREFIX_ . 'settings` SET value=:value WHERE name=:name LIMIT 1');
 		$sth->bindValue(':name', $name, PDO::PARAM_STR);
 		if ($type == 'isset') {
-			$sth->bindValue(':value', isset ($_POST[$name]), PDO::PARAM_INT);
+			$sth->bindValue(':value', isset($_POST[$name]), PDO::PARAM_INT);
 		} else {
 			$sth->bindValue(':value', $_POST[$name], PDO::PARAM_STR);
 		}
@@ -44,7 +44,7 @@ class settings
 		foreach ($array_isset as $name) {
 			static::checkAndAdd($name);
 			$sth->bindValue(':name', $name, PDO::PARAM_STR);
-			$sth->bindValue(':value', isset ($_POST[$name]), PDO::PARAM_INT);
+			$sth->bindValue(':value', isset($_POST[$name]), PDO::PARAM_INT);
 			$sth->execute();
 		}
 	}
@@ -52,7 +52,7 @@ class settings
 	public static function checkAndAdd(string $name)
 	{
 		global $db, $settings;
-		if (!empty ($settings) and !isset ($settings[$name])) {
+		if (!empty($settings) and !isset($settings[$name])) {
 			$sth = $db->prepare('INSERT INTO `' . _DB_PREFIX_ . 'settings`(`name`) VALUES (:name)');
 			$sth->bindValue(':name', $name, PDO::PARAM_STR);
 			$sth->execute();

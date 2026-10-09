@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -24,13 +24,13 @@ class user
 		global $db, $settings;
 		$this->logged_in = false;
 
-		if (isset ($_GET['log_out']) and !empty ($_GET['token']) and checkToken('logout', $_GET['token'])) {
+		if (isset($_GET['log_out']) and !empty($_GET['token']) and checkToken('logout', $_GET['token'])) {
 			$this->logOut();
 			header("Location: " . $settings['base_url']);
-			die ('redirect');
-		} elseif (!empty ($_SESSION['user']['id']) and !empty ($_SESSION['user']['session_code'])) {
+			die('redirect');
+		} elseif (!empty($_SESSION['user']['id']) and !empty($_SESSION['user']['session_code'])) {
 			$this->loginFromSession();
-		} elseif (!empty ($_COOKIE['user_id']) and !empty ($_COOKIE['user_code'])) {
+		} elseif (!empty($_COOKIE['user_id']) and !empty($_COOKIE['user_code'])) {
 			$_SESSION['user']['id'] = $_COOKIE['user_id'];
 			$_SESSION['user']['session_code'] = $_COOKIE['user_code'];
 			$this->loginFromSession();
@@ -39,7 +39,7 @@ class user
 
 	public function __get($value)
 	{
-		if (isset ($this->user_data[$value])) {
+		if (isset($this->user_data[$value])) {
 			return $this->user_data[$value];
 		}
 		return false;
@@ -90,19 +90,19 @@ class user
 				if ($user['active'] == '1') {
 					if ($user['username'] == '') {
 						header("Location: " . path('login') . "?complete_data=" . $user['activation_code']);
-						die ('redirect');
+						die('redirect');
 					}
 
 					static::setSession($user['id'], $data['session_code']);
 
 					logsUser::add($user['id']);
 
-					if (!empty ($_GET['redirect'])) {
+					if (!empty($_GET['redirect'])) {
 						header("Location: " . $_GET['redirect'] . "");
 					} else {
 						header("Location: " . $settings['base_url']);
 					}
-					die ('redirect');
+					die('redirect');
 				} else {
 					static::removeSessionCode($data['session_code']);
 					throw new Exception(trans('The account has not been activated yet.'));
@@ -189,7 +189,7 @@ class user
 	{
 		global $db;
 		$this->logged_in = false;
-		if (!empty ($_SESSION['user']['session_code'])) {
+		if (!empty($_SESSION['user']['session_code'])) {
 			$sth = $db->prepare('DELETE FROM ' . _DB_PREFIX_ . 'session_user WHERE code=:code');
 			$sth->bindValue(':code', $_SESSION['user']['session_code'], PDO::PARAM_STR);
 			$sth->execute();
@@ -237,13 +237,13 @@ class user
 				} elseif ($data['password'] != $data['password_repeat']) {
 					$error['password'] = trans('Entered passwords are different');
 				}
-				if (!isset ($data['rules'])) {
+				if (!isset($data['rules'])) {
 					$error['rules'] = trans('This field is mandatory');
 				}
 			}
 		}
 
-		if (isset ($error)) {
+		if (isset($error)) {
 			return ['status' => false, 'error' => $error];
 		} else {
 
@@ -353,7 +353,7 @@ class user
 	public function completeData(string $code, array $data)
 	{
 		global $db;
-		if (!isset ($data['rules'])) {
+		if (!isset($data['rules'])) {
 			throw new Exception(trans('You must approve the rules and privacy policy'));
 		}
 		$old_username = $data['username'];
@@ -459,10 +459,10 @@ class user
 	public function saveUserData(array $data)
 	{
 		global $db;
-		if (!isset ($data['state_id'])) {
+		if (!isset($data['state_id'])) {
 			$data['state_id'] = 0;
 		}
-		if (!isset ($data['state2_id'])) {
+		if (!isset($data['state2_id'])) {
 			$data['state2_id'] = 0;
 		}
 		$sth = $db->prepare('UPDATE ' . _DB_PREFIX_ . 'user SET address=:address, phone=:phone, facebook_url=:facebook_url, state_id=:state_id, state2_id=:state2_id WHERE id=:id LIMIT 1');
@@ -492,18 +492,18 @@ class user
 	{
 		global $settings;
 		$fb_email = '';
-		if (!empty ($_REQUEST['code'])) {
+		if (!empty($_REQUEST['code'])) {
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/oauth/access_token?fields=email,name&client_id=" . $settings['facebook_api'] . "&redirect_uri=" . urlencode(path('login') . '?facebook_login') . "&client_secret=" . $settings['facebook_secret'] . "&code=" . $_REQUEST['code']);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			$fb_params = json_decode(curl_exec($ch));
 			curl_close($ch);
-			if (isset ($fb_params->access_token)) {
+			if (isset($fb_params->access_token)) {
 				$ch = curl_init();
 				curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/me?fields=email,name&access_token=" . $fb_params->access_token);
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 				$fb_user = json_decode(curl_exec($ch), true);
-				if (isset ($fb_user['email'])) {
+				if (isset($fb_user['email'])) {
 					$fb_email = $fb_user['email'];
 				}
 				curl_close($ch);
@@ -518,7 +518,7 @@ class user
 	{
 		global $settings;
 		$google_email = '';
-		if (!empty ($_REQUEST['code'])) {
+		if (!empty($_REQUEST['code'])) {
 			$url = 'https://accounts.google.com/o/oauth2/token';
 			$curlPost = 'client_id=' . $settings['google_id'] . '&redirect_uri=' . urlencode(path('login')) . '&client_secret=' . $settings['google_secret'] . '&code=' . $_REQUEST['code'] . '&grant_type=authorization_code';
 			$ch = curl_init();
@@ -528,7 +528,7 @@ class user
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $curlPost);
 			$data = json_decode(curl_exec($ch), true);
-			if (!empty ($data['access_token'])) {
+			if (!empty($data['access_token'])) {
 				$url = 'https://www.googleapis.com/oauth2/v2/userinfo?fields=email,verified_email';
 				$ch = curl_init();
 				curl_setopt($ch, CURLOPT_URL, $url);
@@ -536,7 +536,7 @@ class user
 				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 				curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: Bearer ' . $data['access_token']]);
 				$data2 = json_decode(curl_exec($ch), true);
-				if (!empty ($data2['email']) and !empty ($data2['verified_email'])) {
+				if (!empty($data2['email']) and !empty($data2['verified_email'])) {
 					$google_email = $data2['email'];
 				}
 			}
@@ -567,19 +567,19 @@ class user
 				}
 				if ($user_data['username'] == '') {
 					header("Location: " . path('login') . "?complete_data=" . $user_data['activation_code']);
-					die ('redirect');
+					die('redirect');
 				}
 
 				static::setSession($user_data['id']);
 
 				logsUser::add($user_data['id']);
 
-				if (!empty ($_GET['redirect'])) {
+				if (!empty($_GET['redirect'])) {
 					header("Location: " . $_GET['redirect'] . "");
 				} else {
 					header("Location: " . $settings['base_url']);
 				}
-				die ('redirect');
+				die('redirect');
 			} else {
 
 				$activation_code = bin2hex(random_bytes(32));
@@ -605,7 +605,7 @@ class user
 				$sth->execute();
 
 				header("Location: " . path('login') . "?complete_data=" . $activation_code);
-				die ('redirect');
+				die('redirect');
 			}
 		}
 	}
@@ -726,52 +726,52 @@ class user
 		$users = [];
 		$where_statement = ' true ';
 		$bind_values = [];
-		if (isset ($data['search'])) {
-			if (!empty ($data['username'])) {
+		if (isset($data['search'])) {
+			if (!empty($data['username'])) {
 				$where_statement .= ' AND username LIKE :username ';
 				$bind_values['username'] = '%' . $_GET['username'] . '%';
 			}
-			if (!empty ($data['email'])) {
+			if (!empty($data['email'])) {
 				$where_statement .= ' AND email LIKE :email ';
 				$bind_values['email'] = '%' . $data['email'] . '%';
 			}
-			if (!empty ($data['active'])) {
+			if (!empty($data['active'])) {
 				if ($data['active'] == 'yes') {
 					$where_statement .= ' AND active="1" ';
 				} elseif ($data['active'] == 'no') {
 					$where_statement .= ' AND active="0") ';
 				}
 			}
-			if (!empty ($data['moderator'])) {
+			if (!empty($data['moderator'])) {
 				if ($data['moderator'] == 'yes') {
 					$where_statement .= ' AND moderator="1" ';
 				} elseif ($data['moderator'] == 'no') {
 					$where_statement .= ' AND moderator="0" ';
 				}
 			}
-			if (!empty ($_GET['register_fb'])) {
+			if (!empty($_GET['register_fb'])) {
 				if ($data['register_fb'] == 'yes') {
 					$where_statement .= ' AND register_fb="1" ';
 				} elseif ($data['register_fb'] == 'no') {
 					$where_statement .= ' AND register_fb="0" ';
 				}
 			}
-			if (!empty ($data['register_google'])) {
+			if (!empty($data['register_google'])) {
 				if ($data['register_google'] == 'yes') {
 					$where_statement .= ' AND register_google="1" ';
 				} elseif ($data['register_google'] == 'no') {
 					$where_statement .= ' AND register_google="0" ';
 				}
 			}
-			if (!empty ($data['date_from'])) {
+			if (!empty($data['date_from'])) {
 				$where_statement .= ' AND date >= :date_from ';
 				$bind_values['date_from'] = $data['date_from'];
 			}
-			if (!empty ($data['date_to'])) {
+			if (!empty($data['date_to'])) {
 				$where_statement .= ' AND date <= :date_to ';
 				$bind_values['date_to'] = $data['date_to'] . ' 23:59:59';
 			}
-			if (!empty ($data['register_ip'])) {
+			if (!empty($data['register_ip'])) {
 				$where_statement .= ' AND register_ip LIKE :register_ip ';
 				$bind_values['register_ip'] = '%' . $data['register_ip'] . '%';
 			}

@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -33,7 +33,7 @@ class option
 		$sth = $db->prepare('DELETE from ' . _DB_PREFIX_ . 'option_value WHERE classified_id=:classified_id');
 		$sth->bindValue(':classified_id', $classified_id, PDO::PARAM_INT);
 		$sth->execute();
-		if (!empty ($options)) {
+		if (!empty($options)) {
 			$sth = $db->prepare('INSERT INTO `' . _DB_PREFIX_ . 'option_value`(`classified_id`, `option_id`, `value`) VALUES (:classified_id, :option_id, :value)');
 			$sth->bindValue(':classified_id', $classified_id, PDO::PARAM_INT);
 			foreach ($options as $key => $value) {
@@ -116,7 +116,7 @@ class option
 
 	public static function getKindName(string $name)
 	{
-		if (isset (static::getKinds()[$name])) {
+		if (isset(static::getKinds()[$name])) {
 			return static::getKinds()[$name];
 		}
 		return '';
@@ -136,7 +136,7 @@ class option
 	{
 		global $db;
 		if ($id > 0 and static::checkKind($data['kind'])) {
-			if (!empty ($data['select_choices'])) {
+			if (!empty($data['select_choices'])) {
 				$select_choices = implode(PHP_EOL, static::getSelectChoices($data['select_choices']));
 			} else {
 				$select_choices = '';
@@ -144,14 +144,14 @@ class option
 
 			$sth = $db->prepare('UPDATE `' . _DB_PREFIX_ . 'option` SET kind=:kind, required=:required, search=:search, categories_all=:categories_all, select_choices=:select_choices WHERE id=:id LIMIT 1');
 			$sth->bindValue(':kind', $data['kind'], PDO::PARAM_STR);
-			$sth->bindValue(':required', isset ($data['required']), PDO::PARAM_INT);
-			$sth->bindValue(':search', isset ($data['search']), PDO::PARAM_INT);
-			$sth->bindValue(':categories_all', isset ($data['categories_all']), PDO::PARAM_INT);
+			$sth->bindValue(':required', isset($data['required']), PDO::PARAM_INT);
+			$sth->bindValue(':search', isset($data['search']), PDO::PARAM_INT);
+			$sth->bindValue(':categories_all', isset($data['categories_all']), PDO::PARAM_INT);
 			$sth->bindValue(':select_choices', $select_choices, PDO::PARAM_STR);
 			$sth->bindValue(':id', $id, PDO::PARAM_INT);
 			$sth->execute();
 
-			if (isset ($data['name'])) {
+			if (isset($data['name'])) {
 				$sth = $db->prepare('UPDATE `' . _DB_PREFIX_ . 'option` SET name=:name WHERE id=:id LIMIT 1');
 				$sth->bindValue(':name', $data['name'], PDO::PARAM_STR);
 				$sth->bindValue(':id', $id, PDO::PARAM_INT);
@@ -162,7 +162,7 @@ class option
 			$sth->bindValue(':option_id', $id, PDO::PARAM_INT);
 			$sth->execute();
 
-			if (!isset ($data['categories_all']) and isset ($data['categories']) and is_array($data['categories'])) {
+			if (!isset($data['categories_all']) and isset($data['categories']) and is_array($data['categories'])) {
 				$categories = $data['categories'];
 				$values = '';
 				foreach ($categories as $category_id) {
@@ -179,7 +179,7 @@ class option
 	public static function checkKind(string $name)
 	{
 		$kinds = static::getKinds();
-		if (isset ($kinds[$name])) {
+		if (isset($kinds[$name])) {
 			return true;
 		}
 		return false;

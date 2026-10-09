@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -25,36 +25,36 @@ error_reporting(0);
 ob_start();
 
 if (phpversion() < 7.2) {
-	die ('Wrong version of PHP on the server. The minimum supported is 7.2');
+	die('Wrong version of PHP on the server. The minimum supported is 7.2');
 }
 
 if (!is_writable('../config/db.php')) {
-	die ('The file /config/db.php is not writable!');
+	die('The file /config/db.php is not writable!');
 }
 
 if (!file_exists('../vendor/autoload.php')) {
-    die('Error: Missing vendor directory or autoload.php file.<br>Please run <code>composer install</code> before starting the installation.');
+	die('Error: Missing vendor directory or autoload.php file.<br>Please run <code>composer install</code> before starting the installation.');
 }
 
 $install = true;
-require_once ('../config/db.php');
+require_once('../config/db.php');
 
-if (isset ($mysql_server)) {
+if (isset($mysql_server)) {
 	header('location: ../admin');
-	die ('redirect...');
+	die('redirect...');
 }
 
 $settings['base_url'] = true;
-require_once ('../php/global.php');
+require_once('../php/global.php');
 
-if (isset ($_GET['lang']) and $_GET['lang'] != '') {
+if (isset($_GET['lang']) and $_GET['lang'] != '') {
 	$settings['lang'] = langLoad($_GET['lang']);
 } else {
 	$settings['lang'] = langLoad();
 }
 $langList = langList();
 
-if (!empty ($_POST['base_url']) and !empty ($_POST['server']) and !empty ($_POST['user']) and !empty ($_POST['name']) and !empty ($_POST['admin']) and !empty ($_POST['password_admin']) and !empty ($_POST['password_admin_repeat']) and !empty ($_POST['email']) and isset ($_POST['db_prefix'])) {
+if (!empty($_POST['base_url']) and !empty($_POST['server']) and !empty($_POST['user']) and !empty($_POST['name']) and !empty($_POST['admin']) and !empty($_POST['password_admin']) and !empty($_POST['password_admin_repeat']) and !empty($_POST['email']) and isset($_POST['db_prefix'])) {
 
 	if ($_POST['password_admin'] != $_POST['password_admin_repeat']) {
 		$error = trans('Entered passwords are different');
@@ -68,7 +68,7 @@ if (!empty ($_POST['base_url']) and !empty ($_POST['server']) and !empty ($_POST
 			$error = true;
 		}
 
-		if (isset ($error)) {
+		if (isset($error)) {
 			$error = trans('Error! Unable to connect to the server.');
 		} else {
 
@@ -91,7 +91,7 @@ define("_DB_PREFIX_", "' . _DB_PREFIX_ . '");
 
 			$sql = file_get_contents('holmes2.sql');
 
-			if (isset ($_POST['sample_data'])) {
+			if (isset($_POST['sample_data'])) {
 				$sql .= file_get_contents('holmes2_sample_data.sql');
 			}
 
@@ -103,7 +103,7 @@ define("_DB_PREFIX_", "' . _DB_PREFIX_ . '");
 
 			$db->exec($sql);
 
-			require_once ('../class/admin.class.php');
+			require_once('../class/admin.class.php');
 			$admin = new admin();
 			$password_admin = $admin->createPassword($_POST['password_admin']);
 
@@ -147,7 +147,7 @@ define("_DB_PREFIX_", "' . _DB_PREFIX_ . '");
 			chmod("../config/db.php", 0644);
 
 			header('location: ' . webAddress($_POST['base_url']) . '/admin');
-			die ('redirect...');
+			die('redirect...');
 		}
 	}
 }
@@ -174,7 +174,7 @@ define("_DB_PREFIX_", "' . _DB_PREFIX_ . '");
 			<?= trans('Welcome to the installation program! Please fill in the fields below to pre-configure page.') ?>
 		</h5>
 		<?php
-		if (isset ($error)) {
+		if (isset($error)) {
 			echo ('<h3 class="text-danger text-center">' . $error . '</h3>');
 		}
 		?>
@@ -208,7 +208,7 @@ define("_DB_PREFIX_", "' . _DB_PREFIX_ . '");
 				</label>
 				<div class="col-sm-7">
 					<input class="form-control" type="text" name="base_url" placeholder="<?= trans('Base URL') ?>"
-						value="<?php if (isset ($_POST['base_url'])) {
+						value="<?php if (isset($_POST['base_url'])) {
 							echo ($_POST['base_url']);
 						} else {
 							echo ('http://' . $_SERVER['HTTP_HOST']);
@@ -222,7 +222,7 @@ define("_DB_PREFIX_", "' . _DB_PREFIX_ . '");
 				</label>
 				<div class="col-sm-7">
 					<input class="form-control" type="text" name="server" placeholder="<?= trans('The database server') ?>"
-						value="<?php if (isset ($_POST['server'])) {
+						value="<?php if (isset($_POST['server'])) {
 							echo ($_POST['server']);
 						} else {
 							echo ('localhost');
@@ -236,7 +236,7 @@ define("_DB_PREFIX_", "' . _DB_PREFIX_ . '");
 				</label>
 				<div class="col-sm-7">
 					<input class="form-control" type="text" name="user" placeholder="<?= trans('The database user name') ?>"
-						value="<?php if (isset ($_POST['user'])) {
+						value="<?php if (isset($_POST['user'])) {
 							echo ($_POST['user']);
 						} ?>" required
 						title="<?= trans('The database user name') ?>" />
@@ -248,7 +248,7 @@ define("_DB_PREFIX_", "' . _DB_PREFIX_ . '");
 				</label>
 				<div class="col-sm-7">
 					<input class="form-control" type="text" name="name" placeholder="<?= trans('The database name') ?>"
-						value="<?php if (isset ($_POST['name'])) {
+						value="<?php if (isset($_POST['name'])) {
 							echo ($_POST['name']);
 						} ?>" required
 						title="<?= trans('The database name') ?>" />
@@ -261,7 +261,7 @@ define("_DB_PREFIX_", "' . _DB_PREFIX_ . '");
 				<div class="col-sm-7">
 					<input class="form-control" type="password" name="password"
 						placeholder="<?= trans('Password for database') ?>"
-						value="<?php if (isset ($_POST['password'])) {
+						value="<?php if (isset($_POST['password'])) {
 							echo ($_POST['password']);
 						} ?>"
 						title="<?= trans('Password for database') ?>" />
@@ -273,7 +273,7 @@ define("_DB_PREFIX_", "' . _DB_PREFIX_ . '");
 				</label>
 				<div class="col-sm-7">
 					<input class="form-control" type="text" name="admin" placeholder="<?= trans('Username to Admin Panel') ?>"
-						value="<?php if (isset ($_POST['admin'])) {
+						value="<?php if (isset($_POST['admin'])) {
 							echo ($_POST['admin']);
 						} else {
 							echo ('administrator');
@@ -288,7 +288,7 @@ define("_DB_PREFIX_", "' . _DB_PREFIX_ . '");
 				<div class="col-sm-7">
 					<input class="form-control" type="password" name="password_admin"
 						placeholder="<?= trans('Password to Admin Panel') ?>"
-						value="<?php if (isset ($_POST['password_admin'])) {
+						value="<?php if (isset($_POST['password_admin'])) {
 							echo ($_POST['password_admin']);
 						} ?>" required
 						title="<?= trans('Password to Admin Panel') ?>" />
@@ -309,7 +309,7 @@ define("_DB_PREFIX_", "' . _DB_PREFIX_ . '");
 				</label>
 				<div class="col-sm-7">
 					<input class="form-control" type="email" name="email" placeholder="<?= trans('E-mail Administrator') ?>"
-						value="<?php if (isset ($_POST['email'])) {
+						value="<?php if (isset($_POST['email'])) {
 							echo ($_POST['email']);
 						} ?>"
 						title="<?= trans('E-mail Administrator') ?>" required />
@@ -322,7 +322,7 @@ define("_DB_PREFIX_", "' . _DB_PREFIX_ . '");
 				<div class="col-sm-7">
 					<input class="form-control" type="text" name="db_prefix"
 						placeholder="<?= trans('Prefix tables in the database') ?>"
-						value="<?php if (isset ($_POST['db_prefix'])) {
+						value="<?php if (isset($_POST['db_prefix'])) {
 							echo ($_POST['db_prefix']);
 						} ?>"
 						title="<?= trans('Prefix tables in the database') ?>" pattern="[a-z_]*" />
@@ -331,7 +331,7 @@ define("_DB_PREFIX_", "' . _DB_PREFIX_ . '");
 			<div class="form-group row">
 				<div class="col-sm-7 offset-sm-5">
 					<div class="checkbox">
-						<label><input type="checkbox" name="sample_data" <?php if (isset ($_POST['sample_data'])) {
+						<label><input type="checkbox" name="sample_data" <?php if (isset($_POST['sample_data'])) {
 							echo ('checked');
 						} ?> />
 							<?= trans('Install sample data (categories, states, etc.)') ?>

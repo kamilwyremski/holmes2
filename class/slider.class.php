@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -38,7 +38,7 @@ class slider
 	{
 		global $db;
 		$db->query('TRUNCATE `' . _DB_PREFIX_ . 'slider`');
-		if (isset ($data['content']) and is_array($data['content'])) {
+		if (isset($data['content']) and is_array($data['content'])) {
 			$contents = array_filter($data['content']);
 			$sth = $db->prepare('INSERT INTO `' . _DB_PREFIX_ . 'slider`(content) VALUES (:content)');
 			foreach ($contents as $content) {

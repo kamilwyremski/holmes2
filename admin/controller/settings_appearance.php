@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,13 +14,13 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
 if ($admin->is_logged()) {
 
-	if (isset ($_POST['action']) and $_POST['action'] == 'save_settings_appearance' and !empty ($_POST['template']) and checkToken('admin_save_settings_appearance')) {
+	if (isset($_POST['action']) and $_POST['action'] == 'save_settings_appearance' and !empty($_POST['template']) and checkToken('admin_save_settings_appearance')) {
 
 		settings::save('template');
 

@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,14 +14,14 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
 if ($admin->is_logged()) {
 
 	$category_id = 0;
-	if (isset ($_GET['category_id']) and $_GET['category_id'] > 0) {
+	if (isset($_GET['category_id']) and $_GET['category_id'] > 0) {
 		$category = category::show($_GET['category_id'], true);
 		if ($category) {
 			$render_variables['category'] = $category;
@@ -29,8 +29,8 @@ if ($admin->is_logged()) {
 		}
 	}
 
-	if (!_ADMIN_TEST_MODE_ and isset ($_POST['action'])) {
-		if ($_POST['action'] == 'add_category' and !empty ($_POST['name']) and checkToken('admin_add_category')) {
+	if (!_ADMIN_TEST_MODE_ and isset($_POST['action'])) {
+		if ($_POST['action'] == 'add_category' and !empty($_POST['name']) and checkToken('admin_add_category')) {
 
 			$category_tmp = category::showBySlug(slug($_POST['name']), $category_id);
 			if ($category_tmp) {
@@ -40,24 +40,24 @@ if ($admin->is_logged()) {
 				$render_variables['alert_success'][] = trans('Successfully added') . ' ' . strip_tags($_POST['name']);
 			}
 
-		} elseif ($_POST['action'] == 'edit_category' and isset ($_POST['id']) and $_POST['id'] > 0 and !empty ($_POST['name']) and checkToken('admin_edit_category')) {
+		} elseif ($_POST['action'] == 'edit_category' and isset($_POST['id']) and $_POST['id'] > 0 and !empty($_POST['name']) and checkToken('admin_edit_category')) {
 
 			category::edit($_POST, $_POST['id']);
 			$render_variables['alert_success'][] = trans('Changes have been saved');
 
-		} elseif ($_POST['action'] == 'remove_category' and isset ($_POST['id']) and $_POST['id'] > 0 and checkToken('admin_remove_category')) {
+		} elseif ($_POST['action'] == 'remove_category' and isset($_POST['id']) and $_POST['id'] > 0 and checkToken('admin_remove_category')) {
 
 			category::remove($_POST['id']);
 			$render_variables['alert_danger'][] = trans('Successfully deleted');
 
-		} elseif ($_POST['action'] == 'reload_category' and isset ($_POST['category']) and $_POST['category'] >= 0 and checkToken('admin_reload_category')) {
+		} elseif ($_POST['action'] == 'reload_category' and isset($_POST['category']) and $_POST['category'] >= 0 and checkToken('admin_reload_category')) {
 
 			category::refreshAllSubcategories($_POST['category']);
 			$render_variables['alert_success'][] = trans('Categories have been reloaded');
 
-		} elseif ($_POST['action'] == 'position' and isset ($_POST['id']) and isset ($_POST['position']) and checkToken('position') and (isset ($_POST['+']) or isset ($_POST['-']))) {
+		} elseif ($_POST['action'] == 'position' and isset($_POST['id']) and isset($_POST['position']) and checkToken('position') and (isset($_POST['+']) or isset($_POST['-']))) {
 
-			if (isset ($_POST['+'])) {
+			if (isset($_POST['+'])) {
 				$plusminus = '+';
 			} else {
 				$plusminus = '-';

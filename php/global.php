@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -17,15 +17,15 @@
 function getYoutubeIdFromUrl($url)
 {
 	$parts = parse_url($url);
-	if (isset ($parts['query'])) {
+	if (isset($parts['query'])) {
 		parse_str($parts['query'], $qs);
-		if (isset ($qs['v'])) {
+		if (isset($qs['v'])) {
 			return $qs['v'];
-		} else if (isset ($qs['vi'])) {
+		} else if (isset($qs['vi'])) {
 			return $qs['vi'];
 		}
 	}
-	if (isset ($parts['path'])) {
+	if (isset($parts['path'])) {
 		$path = explode('/', trim($parts['path'], '/'));
 		return $path[count($path) - 1];
 	}
@@ -43,10 +43,10 @@ function GetUsernameFromFacebookURL(string $url)
 
 function generateToken(string $name)
 {
-	if (empty ($_SESSION['token'])) {
+	if (empty($_SESSION['token'])) {
 		$_SESSION['token'] = [];
 	}
-	if (!empty ($_SESSION['token'][$name])) {
+	if (!empty($_SESSION['token'][$name])) {
 		$token = $_SESSION['token'][$name];
 	} else {
 		$token = bin2hex(random_bytes(32));
@@ -57,11 +57,11 @@ function generateToken(string $name)
 
 function checkToken(string $name, string $token = '')
 {
-	if (!$token and isset ($_POST['token'])) {
+	if (!$token and isset($_POST['token'])) {
 		$token = $_POST['token'];
 	}
 	$check = false;
-	if ($token and !empty ($_SESSION['token'][$name]) and hash_equals($_SESSION['token'][$name], $token)) {
+	if ($token and !empty($_SESSION['token'][$name]) and hash_equals($_SESSION['token'][$name], $token)) {
 		$check = true;
 		unset($_SESSION['token'][$name]);
 	}
@@ -81,7 +81,7 @@ function path(string $controller, int $id = 0, string $slug = '')
 	global $links, $settings;
 	if ($controller == 'classified') {
 		return $settings['base_url'] . '/' . $id . '-' . $slug;
-	} elseif (isset ($links[$controller])) {
+	} elseif (isset($links[$controller])) {
 		if ($id and $slug) {
 			return $settings['base_url'] . '/' . $links[$controller] . '/' . $id . '-' . $slug;
 		} elseif ($slug) {
@@ -120,7 +120,7 @@ function getPosition(string $table, string $condition = 'true')
 	global $db;
 	$sth = $db->query('SELECT position FROM `' . _DB_PREFIX_ . $table . '` WHERE ' . $condition . ' ORDER BY position DESC LIMIT 1');
 	$pos = $sth->fetch(PDO::FETCH_ASSOC);
-	if (!empty ($pos)) {
+	if (!empty($pos)) {
 		return $pos['position'] + 1;
 	} else {
 		return 1;
@@ -149,9 +149,9 @@ function setPosition(string $table, int $id, int $position, string $plusminus, s
 
 function orderBy(string $sort = ' id DESC ')
 {
-	if (!empty ($_GET['sort'])) {
+	if (!empty($_GET['sort'])) {
 		$sort = slug($_GET['sort']);
-		if (isset ($_GET['sort_desc'])) {
+		if (isset($_GET['sort_desc'])) {
 			$sort .= ' DESC ';
 		}
 	}
@@ -161,7 +161,7 @@ function orderBy(string $sort = ' id DESC ')
 function paginationPageFrom(int $limit)
 {
 	$limit_start = 0;
-	if (isset ($_GET['page']) and is_numeric($_GET['page']) and $_GET['page'] > 0) {
+	if (isset($_GET['page']) and is_numeric($_GET['page']) and $_GET['page'] > 0) {
 		$limit_start = ($_GET['page'] - 1) * $limit;
 	}
 	return $limit_start;
@@ -172,7 +172,7 @@ function generatePagination(int $limit)
 	global $render_variables, $db;
 	$limit_start = paginationPageFrom($limit);
 	$page_number = 1;
-	if (isset ($_GET['page']) and is_numeric($_GET['page']) and $_GET['page'] > 0) {
+	if (isset($_GET['page']) and is_numeric($_GET['page']) and $_GET['page'] > 0) {
 		$page_number = $_GET['page'];
 	}
 
@@ -206,7 +206,7 @@ function generatePagination(int $limit)
 function trans(string $text)
 {
 	global $translate;
-	if (isset ($translate[$text])) {
+	if (isset($translate[$text])) {
 		return ($translate[$text]);
 	} else {
 		return ($text);
@@ -231,7 +231,7 @@ function langLoad(string $lang = 'en')
 	if (!in_array($lang, langList())) {
 		$lang = 'en';
 	}
-	require_once (realpath(dirname(__FILE__)) . '/../config/langs/' . $lang . '.php');
+	require_once(realpath(dirname(__FILE__)) . '/../config/langs/' . $lang . '.php');
 	return $lang;
 }
 
@@ -259,7 +259,7 @@ function showInfo(string $info)
 
 function checkInfo()
 {
-	if (!empty ($_SESSION['flash'])) {
+	if (!empty($_SESSION['flash'])) {
 		showInfo($_SESSION['flash']);
 		unset($_SESSION['flash']);
 	}
@@ -429,11 +429,11 @@ function isSlug(string $string)
 
 function getClientIp()
 {
-	if (!empty ($_SERVER['HTTP_CLIENT_IP'])) {
+	if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
 		return $_SERVER['HTTP_CLIENT_IP'];
-	} elseif (!empty ($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+	} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 		return $_SERVER['HTTP_X_FORWARDED_FOR'];
-	} elseif (!empty ($_SERVER['REMOTE_ADDR'])) {
+	} elseif (!empty($_SERVER['REMOTE_ADDR'])) {
 		return $_SERVER['REMOTE_ADDR'];
 	} else {
 		return 'SERVER';

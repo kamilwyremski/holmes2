@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -18,7 +18,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 session_start();
 
-require_once ('../config/config.php');
+require_once('../config/config.php');
 
 $loader = new \Twig\Loader\FilesystemLoader('views');
 $twig = new \Twig\Environment($loader, [
@@ -35,7 +35,7 @@ $title = $title_default = 'Admin Panel created by Kamil Wyremski';
 
 $controller = 'index';
 if ($admin->is_logged()) {
-	if (isset ($_GET['controller']) and isSlug($_GET['controller'])) {
+	if (isset($_GET['controller']) and isSlug($_GET['controller'])) {
 		if (file_exists('controller/' . $_GET['controller'] . '.php')) {
 			$controller = $_GET['controller'];
 			$title = ucfirst($controller) . ' - ' . $title_default;
@@ -54,9 +54,9 @@ class noFoundException extends Exception
 }
 
 try {
-	include_once ('controller/' . $controller . '.php');
+	include_once('controller/' . $controller . '.php');
 } catch (noFoundException $e) {
-	include_once ('controller/404.php');
+	include_once('controller/404.php');
 }
 
 echo $twig->render($controller . '.html', array_merge($render_variables, ['title' => $title, 'settings' => $settings, 'admin' => $admin->user_data, '_ADMIN_TEST_MODE_' => _ADMIN_TEST_MODE_, 'get' => $_GET, 'controller' => $controller, 'folder_admin' => basename(dirname($_SERVER['REQUEST_URI']))]));

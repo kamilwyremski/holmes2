@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,21 +14,21 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
 if ($admin->is_logged()) {
 
-	if (!_ADMIN_TEST_MODE_ and isset ($_POST['action'])) {
-		if ($_POST['action'] == 'position_options' and isset ($_POST['id']) and isset ($_POST['position']) and checkToken('position_options') and (isset ($_POST['+']) or isset ($_POST['-']))) {
-			if (isset ($_POST['+'])) {
+	if (!_ADMIN_TEST_MODE_ and isset($_POST['action'])) {
+		if ($_POST['action'] == 'position_options' and isset($_POST['id']) and isset($_POST['position']) and checkToken('position_options') and (isset($_POST['+']) or isset($_POST['-']))) {
+			if (isset($_POST['+'])) {
 				$plusminus = '+';
 			} else {
 				$plusminus = '-';
 			}
 			setPosition('option', $_POST['id'], $_POST['position'], $plusminus);
-		} elseif ($_POST['action'] == 'remove_option' and isset ($_POST['id']) and $_POST['id'] > 0 and checkToken('admin_remove_option')) {
+		} elseif ($_POST['action'] == 'remove_option' and isset($_POST['id']) and $_POST['id'] > 0 and checkToken('admin_remove_option')) {
 			option::remove($_POST['id']);
 			$render_variables['alert_danger'][] = trans('Successfully deleted');
 		}

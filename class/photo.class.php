@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -35,7 +35,7 @@ class photo
 		global $db, $settings, $user;
 
 		$where_statement = ' true ';
-		if ($settings['photo_add'] and !empty ($photos)) {
+		if ($settings['photo_add'] and !empty($photos)) {
 			foreach ($photos as $photo_id) {
 				if (is_numeric($photo_id) and $photo_id > 0) {
 					$where_statement .= ' AND id!=' . intval($photo_id) . ' ';
@@ -54,7 +54,7 @@ class photo
 		$sth->bindValue(':classified_id', $classified_id, PDO::PARAM_INT);
 		$sth->execute();
 
-		if ($settings['photo_add'] and !empty ($photos)) {
+		if ($settings['photo_add'] and !empty($photos)) {
 
 			if ($user->getId() and $user->moderator) {
 				$sth = $db->prepare('SELECT * from ' . _DB_PREFIX_ . 'photo WHERE id=:id LIMIT 1');

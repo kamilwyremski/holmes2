@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,23 +14,23 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
-if (isset ($_GET['activate']) and !empty ($_GET['code'])) {
+if (isset($_GET['activate']) and !empty($_GET['code'])) {
 	classified::activateCode($_GET['code']);
 }
 
-if (!empty ($_GET['code'])) {
+if (!empty($_GET['code'])) {
 	$code = $_GET['code'];
 } else {
 	$code = '';
 }
 
-if (isset ($_GET['id']) and $_GET['id'] > 0 and classified::checkActive($_GET['id'], $code)) {
+if (isset($_GET['id']) and $_GET['id'] > 0 and classified::checkActive($_GET['id'], $code)) {
 
-	if (isset ($_GET['status'])) {
+	if (isset($_GET['status'])) {
 		if ($_GET['status'] == 'OK') {
 			$render_variables['alert_success'][] = trans('Payment correct');
 		} elseif ($_GET['status'] == 'FAIL') {
@@ -38,7 +38,7 @@ if (isset ($_GET['id']) and $_GET['id'] > 0 and classified::checkActive($_GET['i
 		}
 	}
 
-	if ($settings['show_contact_form_classified'] and isset ($_POST['action']) and $_POST['action'] == 'send_message' and !empty ($_POST['name']) and (!empty ($_POST['email']) or $user->getId()) and !empty ($_POST['message']) and (isset ($_POST['captcha']) or isset ($_POST['recaptcha_response'])) and (isset ($_POST['rules']) or $user->getId())) {
+	if ($settings['show_contact_form_classified'] and isset($_POST['action']) and $_POST['action'] == 'send_message' and !empty($_POST['name']) and (!empty($_POST['email']) or $user->getId()) and !empty($_POST['message']) and (isset($_POST['captcha']) or isset($_POST['recaptcha_response'])) and (isset($_POST['rules']) or $user->getId())) {
 
 		if (!settings::checkCaptcha($_POST)) {
 			$error['captcha'] = trans('Invalid captcha code. Show thay you are not robot!');
@@ -48,11 +48,11 @@ if (isset ($_GET['id']) and $_GET['id'] > 0 and classified::checkActive($_GET['i
 		if (settings::checkEmailBlackList($_POST['email']) or settings::checkIpBlackList(getClientIp())) {
 			$error = true;
 		}
-		if (!empty ($_FILES['attachment']['name']) and $_FILES['attachment']['size'] > $settings['attachment_max_size'] * 1024) {
+		if (!empty($_FILES['attachment']['name']) and $_FILES['attachment']['size'] > $settings['attachment_max_size'] * 1024) {
 			$error['attachment'] = trans('The attachment exceeds the allowed size') . ' ' . $settings['attachment_max_size'] . 'kB';
 		}
 
-		if (isset ($error)) {
+		if (isset($error)) {
 			$render_variables['error'] = $error;
 			$render_variables['alert_danger'][] = trans('The message was not sent');
 			$render_variables['input'] = ['name' => $_POST['name'], 'email' => $_POST['email'], 'message' => $_POST['message']];
@@ -72,24 +72,24 @@ if (isset ($_GET['id']) and $_GET['id'] > 0 and classified::checkActive($_GET['i
 			}
 		}
 		$render_variables['showContactTab'] = true;
-	} elseif (isset ($_POST['action']) and $_POST['action'] == 'clipboard_add' and checkToken('clipboard_add')) {
+	} elseif (isset($_POST['action']) and $_POST['action'] == 'clipboard_add' and checkToken('clipboard_add')) {
 		if ($user->getId()) {
 			clipboard::add($_GET['id']);
 			$render_variables['alert_success'][] = trans('Classified added to clipboard');
 		} else {
 			$render_variables['alert_danger'][] = trans('You must be logged in to post ad to clipboard');
 		}
-	} elseif (isset ($_POST['action']) and $_POST['action'] == 'clipboard_remove' and checkToken('clipboard_remove')) {
+	} elseif (isset($_POST['action']) and $_POST['action'] == 'clipboard_remove' and checkToken('clipboard_remove')) {
 
 		clipboard::remove($_GET['id']);
 		$render_variables['alert_success'][] = trans('Classified was removed from clipboard');
 
-	} elseif (isset ($_POST['action']) and $_POST['action'] == 'activate_classified' and classified::countCost($_GET['id'])['total'] == 0 and checkToken('activate_classified')) {
+	} elseif (isset($_POST['action']) and $_POST['action'] == 'activate_classified' and classified::countCost($_GET['id'])['total'] == 0 and checkToken('activate_classified')) {
 
 		classified::activate($_GET['id']);
 		$render_variables['alert_success'][] = trans('The classified has been correctly activated on the site');
 
-	} elseif (isset ($_POST['action']) and $_POST['action'] == 'report_abuse' and (!empty ($_POST['email']) or $user->getId()) and !empty ($_POST['message']) and (isset ($_POST['captcha']) or isset ($_POST['recaptcha_response']))) {
+	} elseif (isset($_POST['action']) and $_POST['action'] == 'report_abuse' and (!empty($_POST['email']) or $user->getId()) and !empty($_POST['message']) and (isset($_POST['captcha']) or isset($_POST['recaptcha_response']))) {
 
 		if (!settings::checkCaptcha($_POST)) {
 			$error = trans('Invalid captcha code. Show thay you are not robot!');
@@ -100,7 +100,7 @@ if (isset ($_GET['id']) and $_GET['id'] > 0 and classified::checkActive($_GET['i
 			$error = '';
 		}
 
-		if (isset ($error)) {
+		if (isset($error)) {
 			$render_variables['alert_danger'][] = trans('The message was not sent') . '. ' . $error;
 			$render_variables['report_abuse'] = ['email' => $_POST['email'], 'message' => $_POST['message']];
 		} else {
@@ -124,7 +124,7 @@ if (isset ($_GET['id']) and $_GET['id'] > 0 and classified::checkActive($_GET['i
 	if ($_GET['slug'] != $classified['slug']) {
 		header("HTTP/1.1 301 Moved Permanently");
 		header("Location: " . path('classified', $classified['id'], $classified['slug']));
-		die ('redirect');
+		die('redirect');
 	}
 
 	if ($settings['show_similar_classifieds']) {
@@ -139,7 +139,7 @@ if (isset ($_GET['id']) and $_GET['id'] > 0 and classified::checkActive($_GET['i
 		$render_variables['classified_cost'] = classified::countCost($classified['id']);
 	}
 
-	if (!empty ($classified['photos'])) {
+	if (!empty($classified['photos'])) {
 		$settings['logo_facebook'] = $settings['base_url'] . '/upload/photos/' . $classified['photos'][0]['folder'] . $classified['photos'][0]['url'];
 	}
 

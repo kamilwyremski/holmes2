@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -22,13 +22,13 @@ class admin
 	{
 		global $db;
 
-		if (isset ($_GET['log_out']) and !empty ($_GET['token']) and checkToken('admin_logout', $_GET['token'])) {
+		if (isset($_GET['log_out']) and !empty($_GET['token']) and checkToken('admin_logout', $_GET['token'])) {
 
 			$this->logOut();
 			header('Location: ../' . basename(dirname($_SERVER['REQUEST_URI'])));
-			die ('redirect');
+			die('redirect');
 
-		} elseif (isset ($_SESSION['admin']['id']) and isset ($_SESSION['admin']['session_code'])) {
+		} elseif (isset($_SESSION['admin']['id']) and isset($_SESSION['admin']['session_code'])) {
 
 			$sth = $db->prepare('SELECT a.id, a.username FROM ' . _DB_PREFIX_ . 'admin_session ass, ' . _DB_PREFIX_ . 'admin a WHERE ass.user_id=a.id AND a.id=:id AND ass.code=:code LIMIT 1');
 			$sth->bindValue(':id', $_SESSION['admin']['id'], PDO::PARAM_INT);
@@ -45,7 +45,7 @@ class admin
 
 	public function __get($value)
 	{
-		if (isset ($this->user_data[$value])) {
+		if (isset($this->user_data[$value])) {
 			return $this->user_data[$value];
 		}
 		return false;
@@ -96,7 +96,7 @@ class admin
 
 	public function is_logged()
 	{
-		if (!empty ($this->user_data['id'])) {
+		if (!empty($this->user_data['id'])) {
 			return true;
 		}
 		return false;
@@ -244,6 +244,6 @@ class admin
 		global $db;
 		$db->query('TRUNCATE ' . _DB_PREFIX_ . 'admin_session');
 		header('Location: ../' . basename(dirname($_SERVER['REQUEST_URI'])));
-		die ('redirect');
+		die('redirect');
 	}
 }

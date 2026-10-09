@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,18 +14,18 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
 if ($admin->is_logged()) {
 
-	if (!_ADMIN_TEST_MODE_ and isset ($_POST['action'])) {
-		if ($_POST['action'] == 'add_article' and !empty ($_POST['name']) and checkToken('admin_add_article')) {
+	if (!_ADMIN_TEST_MODE_ and isset($_POST['action'])) {
+		if ($_POST['action'] == 'add_article' and !empty($_POST['name']) and checkToken('admin_add_article')) {
 			$id = article::add($_POST);
 			header('Location: ?controller=article&id=' . $id);
-			die ('redirect');
-		} elseif ($_POST['action'] == 'edit_article' and isset ($_POST['id']) and $_POST['id'] > 0 and !empty ($_POST['name']) and checkToken('admin_edit_article')) {
+			die('redirect');
+		} elseif ($_POST['action'] == 'edit_article' and isset($_POST['id']) and $_POST['id'] > 0 and !empty($_POST['name']) and checkToken('admin_edit_article')) {
 			article::edit($_POST['id'], $_POST);
 			$render_variables['alert_success'][] = trans('Changes have been saved');
 		}
@@ -33,7 +33,7 @@ if ($admin->is_logged()) {
 
 	$title = trans('Article') . ' - ' . $title_default;
 
-	if (isset ($_GET['id']) and $_GET['id'] > 0) {
+	if (isset($_GET['id']) and $_GET['id'] > 0) {
 		$article = article::show($_GET['id']);
 		if ($article != '') {
 			$title = $article['name'] . ' - ' . $title;

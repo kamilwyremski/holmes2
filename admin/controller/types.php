@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,14 +14,14 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
 if ($admin->is_logged()) {
 
-	if (!_ADMIN_TEST_MODE_ and isset ($_POST['action'])) {
-		if ($_POST['action'] == 'add_type' and !empty ($_POST['name']) and checkToken('admin_add_type')) {
+	if (!_ADMIN_TEST_MODE_ and isset($_POST['action'])) {
+		if ($_POST['action'] == 'add_type' and !empty($_POST['name']) and checkToken('admin_add_type')) {
 
 			$type_tmp = type::showBySlug(slug($_POST['name']));
 			if ($type_tmp) {
@@ -31,19 +31,19 @@ if ($admin->is_logged()) {
 				$render_variables['alert_success'][] = trans('Successfully added') . ' ' . strip_tags($_POST['name']);
 			}
 
-		} elseif ($_POST['action'] == 'edit_type' and isset ($_POST['id']) and $_POST['id'] > 0 and !empty ($_POST['name']) and checkToken('admin_edit_type')) {
+		} elseif ($_POST['action'] == 'edit_type' and isset($_POST['id']) and $_POST['id'] > 0 and !empty($_POST['name']) and checkToken('admin_edit_type')) {
 
 			type::edit($_POST['id'], $_POST);
 			$render_variables['alert_success'][] = trans('Changes have been saved');
 
-		} elseif ($_POST['action'] == 'remove_type' and isset ($_POST['id']) and $_POST['id'] > 0 and checkToken('admin_remove_type')) {
+		} elseif ($_POST['action'] == 'remove_type' and isset($_POST['id']) and $_POST['id'] > 0 and checkToken('admin_remove_type')) {
 
 			type::remove($_POST['id']);
 			$render_variables['alert_danger'][] = trans('Successfully deleted');
 
-		} elseif ($_POST['action'] == 'position' and isset ($_POST['id']) and isset ($_POST['position']) and checkToken('position') and (isset ($_POST['+']) or isset ($_POST['-']))) {
+		} elseif ($_POST['action'] == 'position' and isset($_POST['id']) and isset($_POST['position']) and checkToken('position') and (isset($_POST['+']) or isset($_POST['-']))) {
 
-			if (isset ($_POST['+'])) {
+			if (isset($_POST['+'])) {
 				$plusminus = '+';
 			} else {
 				$plusminus = '-';

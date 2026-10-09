@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,18 +14,18 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
-if (!empty ($_GET['slug'])) {
+if (!empty($_GET['slug'])) {
 	throw new noFoundException();
 }
 
 if ($user->logged_in) {
 
-	if (isset ($_POST['action'])) {
-		if ($_POST['action'] == 'save_avatar' and isset ($_FILES['avatar']) and $_FILES['avatar']["type"] and checkToken('save_avatar')) {
+	if (isset($_POST['action'])) {
+		if ($_POST['action'] == 'save_avatar' and isset($_FILES['avatar']) and $_FILES['avatar']["type"] and checkToken('save_avatar')) {
 
 			$user->saveAvatar();
 
@@ -34,15 +34,15 @@ if ($user->logged_in) {
 			user::removeAvatar($user->getId());
 			$user->user_data['avatar'] = '';
 
-		} elseif ($_POST['action'] == 'save_description' and isset ($_POST['description']) and checkToken('save_description')) {
+		} elseif ($_POST['action'] == 'save_description' and isset($_POST['description']) and checkToken('save_description')) {
 
 			$user->saveDescription($_POST['description']);
 
-		} elseif ($_POST['action'] == 'save_user_data' and isset ($_POST['address']) and isset ($_POST['phone']) and checkToken('save_user_data')) {
+		} elseif ($_POST['action'] == 'save_user_data' and isset($_POST['address']) and isset($_POST['phone']) and checkToken('save_user_data')) {
 
 			$user->saveUserData($_POST);
 
-		} elseif ($_POST['action'] == 'change_password' and !empty ($_POST['old_password']) and !empty ($_POST['new_password']) and !empty ($_POST['repeat_new_password']) and checkToken('change_password')) {
+		} elseif ($_POST['action'] == 'change_password' and !empty($_POST['old_password']) and !empty($_POST['new_password']) and !empty($_POST['repeat_new_password']) and checkToken('change_password')) {
 
 			try {
 				$user->changePassword($_POST);
@@ -62,5 +62,5 @@ if ($user->logged_in) {
 	$settings['seo_description'] = trans('Settings') . ' - ' . $settings['description'];
 } else {
 	header("Location: " . path('login') . "?redirect=" . path('settings'));
-	die ('redirect');
+	die('redirect');
 }

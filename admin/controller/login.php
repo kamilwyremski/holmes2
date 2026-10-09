@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,16 +14,16 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
-if (isset ($_POST['action']) and $_POST['action'] == 'login' and !empty ($_POST['session_code']) and !empty ($_POST['username']) and !empty ($_POST['password'])) {
+if (isset($_POST['action']) and $_POST['action'] == 'login' and !empty($_POST['session_code']) and !empty($_POST['username']) and !empty($_POST['password'])) {
 
 	try {
 		$admin->login($_POST);
 		header('Location: ' . $_SERVER['REQUEST_URI']);
-		die ('redirect');
+		die('redirect');
 	} catch (Exception $e) {
 		$render_variables['alert_danger'][] = $e->getMessage();
 	}

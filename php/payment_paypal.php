@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,9 +14,9 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-require_once ('../config/config.php');
+require_once('../config/config.php');
 
-if (isset ($_POST['action']) and $_POST['action'] == 'new_payment' and isset ($_POST['item_id']) and $_POST['item_id'] > 0 and !empty ($_POST['type'])) {
+if (isset($_POST['action']) and $_POST['action'] == 'new_payment' and isset($_POST['item_id']) and $_POST['item_id'] > 0 and !empty($_POST['type'])) {
 
 	$payment_data = payment::new('paypal', $_POST['item_id'], $_POST['type']);
 	if ($payment_data) {
@@ -45,7 +45,7 @@ if (isset ($_POST['action']) and $_POST['action'] == 'new_payment' and isset ($_
 
 	exit();
 
-} elseif (isset ($_POST['item_number']) and isset ($_POST['payment_status']) and isset ($_POST['mc_gross']) and isset ($_POST['txn_id']) and isset ($_POST['payer_email'])) {
+} elseif (isset($_POST['item_number']) and isset($_POST['payment_status']) and isset($_POST['mc_gross']) and isset($_POST['txn_id']) and isset($_POST['payer_email'])) {
 
 	$req = 'cmd=_notify-validate';
 	foreach ($_POST as $key => $value) {

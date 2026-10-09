@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,14 +14,14 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-if (!isset ($settings['base_url'])) {
-	die ('Access denied!');
+if (!isset($settings['base_url'])) {
+	die('Access denied!');
 }
 
 if ($admin->is_logged()) {
 
-	if (!_ADMIN_TEST_MODE_ and isset ($_POST['action'])) {
-		if ($_POST['action'] == 'save_settings' and !empty ($_POST['base_url']) and !empty ($_POST['email']) and !empty ($_POST['title']) and checkToken('admin_save_settings')) {
+	if (!_ADMIN_TEST_MODE_ and isset($_POST['action'])) {
+		if ($_POST['action'] == 'save_settings' and !empty($_POST['base_url']) and !empty($_POST['email']) and !empty($_POST['title']) and checkToken('admin_save_settings')) {
 
 			$_POST['base_url'] = webAddress($_POST['base_url']);
 
@@ -37,7 +37,7 @@ if ($admin->is_logged()) {
 			getSettings();
 			$render_variables['alert_success'][] = trans('Changes have been saved');
 
-		} elseif ($_POST['action'] == 'send_test_message' and !empty ($_POST['email']) and !empty ($_POST['subject']) and !empty ($_POST['message']) and checkToken('admin_send_test_message')) {
+		} elseif ($_POST['action'] == 'send_test_message' and !empty($_POST['email']) and !empty($_POST['subject']) and !empty($_POST['message']) and checkToken('admin_send_test_message')) {
 			if (mail::send('test', $_POST['email'], ['subject' => $_POST['subject'], 'message' => $_POST['message']])) {
 				$render_variables['alert_success'][] = trans('The message was correctly sent');
 			} else {

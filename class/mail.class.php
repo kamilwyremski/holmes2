@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -62,8 +62,8 @@ class mail
 
 		if ($type != '' and $email != '') {
 
-			if ($settings['smtp'] and !isset ($mail_smtp)) {
-				$mail_smtp = require_once (realpath(dirname(__FILE__)) . '/../config/smtp.php');
+			if ($settings['smtp'] and !isset($mail_smtp)) {
+				$mail_smtp = require_once(realpath(dirname(__FILE__)) . '/../config/smtp.php');
 			}
 
 			if ($type == 'mailing' or $type == 'test') {
@@ -95,37 +95,37 @@ class mail
 				}
 				$message = str_replace("{date}", date("Y-m-d"), $message);
 				$subject = str_replace("{date}", date("Y-m-d"), $subject);
-				if (isset ($data['user_id']) and $data['user_id'] > 0) {
+				if (isset($data['user_id']) and $data['user_id'] > 0) {
 					$data['username'] = user::getUsernameFromId($data['user_id']);
 				}
-				if (isset ($data['username'])) {
+				if (isset($data['username'])) {
 					$message = str_replace("{username}", $data['username'], $message);
 					$subject = str_replace("{username}", $data['username'], $subject);
 				}
-				if (isset ($data['activation_code'])) {
+				if (isset($data['activation_code'])) {
 					$message = str_replace("{activation_link}", path('login') . '?activation_code=' . $data['activation_code'], $message);
 					$subject = str_replace("{activation_link}", path('login') . '?activation_code=' . $data['activation_code'], $subject);
 				}
-				if (isset ($data['newsletter_activation_code'])) {
+				if (isset($data['newsletter_activation_code'])) {
 					$message = str_replace("{newsletter_activation_link}", $settings['base_url'] . '?newsletter_activation_code=' . $data['newsletter_activation_code'], $message);
 					$subject = str_replace("{newsletter_activation_link}", $settings['base_url'] . '?newsletter_activation_code=' . $data['newsletter_activation_code'], $subject);
 				}
-				if (!empty ($data['newsletter_cancel_code'])) {
+				if (!empty($data['newsletter_cancel_code'])) {
 					$message .= '<br><hr><br><p><a href="' . $settings['base_url'] . '?newsletter_cancel=' . $data['newsletter_cancel_code'] . '">' . trans('Delete my email address from the newsletter') . '</a></p>';
 				}
-				if (isset ($data['password'])) {
+				if (isset($data['password'])) {
 					$message = str_replace("{password}", $data['password'], $message);
 					$subject = str_replace("{password}", $data['password'], $subject);
 				}
-				if (isset ($data['reset_password_code'])) {
+				if (isset($data['reset_password_code'])) {
 					$message = str_replace("{reset_password_link}", path('login') . '?new_password=' . $data['reset_password_code'], $message);
 					$subject = str_replace("{reset_password_link}", path('login') . '?new_password=' . $data['reset_password_code'], $subject);
 				}
-				if (isset ($data['name'])) {
+				if (isset($data['name'])) {
 					$message = str_replace("{name}", $data['name'], $message);
 					$subject = str_replace("{name}", $data['name'], $subject);
 				}
-				if (isset ($data['email'])) {
+				if (isset($data['email'])) {
 					$header = 'Reply-To: <' . $data['email'] . "> \r\n";
 					if ($settings['smtp']) {
 						$mail_smtp->clearReplyTos();
@@ -134,27 +134,27 @@ class mail
 					$message = str_replace("{email}", $data['email'], $message);
 					$subject = str_replace("{email}", $data['email'], $subject);
 				}
-				if (isset ($data['message'])) {
+				if (isset($data['message'])) {
 					$message = str_replace("{message}", $data['message'], $message);
 					$subject = str_replace("{message}", $data['message'], $subject);
 				}
-				if (isset ($data['classified_name'])) {
+				if (isset($data['classified_name'])) {
 					$message = str_replace("{classified_name}", $data['classified_name'], $message);
 					$subject = str_replace("{classified_name}", $data['classified_name'], $subject);
 				}
-				if (isset ($data['classified_url'])) {
+				if (isset($data['classified_url'])) {
 					$message = str_replace("{classified_url}", $data['classified_url'], $message);
 					$subject = str_replace("{classified_url}", $data['classified_url'], $subject);
 				}
-				if (isset ($data['classified_edit_link'])) {
+				if (isset($data['classified_edit_link'])) {
 					$message = str_replace("{classified_edit_link}", $data['classified_edit_link'], $message);
 					$subject = str_replace("{classified_edit_link}", $data['classified_edit_link'], $subject);
 				}
-				if (isset ($data['classified_activate_link'])) {
+				if (isset($data['classified_activate_link'])) {
 					$message = str_replace("{classified_activate_link}", $data['classified_activate_link'], $message);
 					$subject = str_replace("{classified_activate_link}", $data['classified_activate_link'], $subject);
 				}
-				if (isset ($data['classifieds_list'])) {
+				if (isset($data['classifieds_list'])) {
 					$classifieds_list = '<ul>';
 					foreach ($data['classifieds_list'] as $classified) {
 						$classifieds_list .= '<li><a href="' . path('classified', $classified['id'], $classified['slug']) . '">' . $classified['name'] . '</a></li>';
@@ -167,7 +167,7 @@ class mail
 				$header .= 'From: ' . $settings['email'] . ' <' . $settings['email'] . ">\r\n";
 				$header .= "MIME-Version: 1.0 \r\n";
 
-				if ($settings['mail_attachment'] and !empty ($_FILES['attachment']['name'])) {
+				if ($settings['mail_attachment'] and !empty($_FILES['attachment']['name'])) {
 
 					$handle = fopen($_FILES['attachment']['tmp_name'], "r");
 					$content = fread($handle, $_FILES['attachment']['size']);
@@ -201,7 +201,7 @@ class mail
 					$mail_smtp->Body = $message;
 					$mail_smtp->MsgHTML = $message;
 					$mail_smtp->AltBody = $message;
-					if (isset ($boundary)) {
+					if (isset($boundary)) {
 						$mail_smtp->AddAttachment($_FILES['attachment']['tmp_name'], $_FILES['attachment']['name']);
 					}
 					$mail_smtp->ClearAllRecipients();

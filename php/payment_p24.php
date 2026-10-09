@@ -1,7 +1,7 @@
 <?php
 /************************************************************************
  * The script of website of real estate HOLMES2
- * Copyright (c) 2019 - 2024 by IT Works Better https://itworksbetter.net
+ * Copyright (c) 2019 - 2026  by IT Works Better https://itworksbetter.net
  * Project by Kamil Wyremski https://wyremski.pl
  *
  * All right reserved
@@ -14,9 +14,9 @@
  * LICENSE THE SCRIPT
  * *********************************************************************/
 
-require_once ('../config/config.php');
+require_once('../config/config.php');
 
-if (isset ($_POST['action']) and $_POST['action'] == 'new_payment' and isset ($_POST['item_id']) and $_POST['item_id'] > 0 and !empty ($_POST['type'])) {
+if (isset($_POST['action']) and $_POST['action'] == 'new_payment' and isset($_POST['item_id']) and $_POST['item_id'] > 0 and !empty($_POST['type'])) {
 
 	$payment_data = payment::new('p24', $_POST['item_id'], $_POST['type']);
 	if ($payment_data) {
@@ -45,8 +45,8 @@ if (isset ($_POST['action']) and $_POST['action'] == 'new_payment' and isset ($_
 		echo ($form);
 	}
 
-} elseif (($_SERVER['REMOTE_ADDR'] == '91.216.191.181' or $_SERVER['REMOTE_ADDR'] == '91.216.191.182' or $_SERVER['REMOTE_ADDR'] == '91.216.191.183' or $_SERVER['REMOTE_ADDR'] == '91.216.191.184' or $_SERVER['REMOTE_ADDR'] == '91.216.191.185' or $_SERVER['REMOTE_ADDR'] == '5.252.202.255' or $_SERVER['REMOTE_ADDR'] == '5.252.202.254' or $_SERVER['REMOTE_ADDR'] == '20.215.81.124') && !empty ($_POST)) {
-	
+} elseif (($_SERVER['REMOTE_ADDR'] == '91.216.191.181' or $_SERVER['REMOTE_ADDR'] == '91.216.191.182' or $_SERVER['REMOTE_ADDR'] == '91.216.191.183' or $_SERVER['REMOTE_ADDR'] == '91.216.191.184' or $_SERVER['REMOTE_ADDR'] == '91.216.191.185' or $_SERVER['REMOTE_ADDR'] == '5.252.202.255' or $_SERVER['REMOTE_ADDR'] == '5.252.202.254' or $_SERVER['REMOTE_ADDR'] == '20.215.81.124') && !empty($_POST)) {
+
 	$sth = $db->prepare('SELECT * FROM ' . _DB_PREFIX_ . 'payment WHERE id=:id AND status="new" LIMIT 1');
 	$sth->bindValue(':id', $_POST['p24_session_id'], PDO::PARAM_STR);
 	$sth->execute();
@@ -89,7 +89,7 @@ if (isset ($_POST['action']) and $_POST['action'] == 'new_payment' and isset ($_
 				$Y = explode("=", $val);
 				$res[trim($Y[0])] = urldecode(trim($Y[1]));
 			}
-			if (isset ($res["error"]) and $res["error"] == 0) {
+			if (isset($res["error"]) and $res["error"] == 0) {
 
 				payment::check($payment_p24['id'], ($_POST['p24_amount'] / 100), $_POST);
 
